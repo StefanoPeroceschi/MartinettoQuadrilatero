@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600">
+  
+<g transform="rotate(30,400,210)">
+    <rect  x="400" y="200" width="200" height="20" style="fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)" />  
+</g>
+
+<g transform="rotate(-30,400,210)">
+  <rect  x="200" y="200" width="200" height="20" style="fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)" />  
+</g>
+
+<g transform="rotate(-30,400,410)">  
+  <rect  x="400" y="400" width="200" height="20" style="fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)" />  
+  <circle cx="600" cy="410" r="10" stroke="black" stroke-width="1" fill="lightgrey" /> 
+</g>
+
+<g transform="rotate(30,400,410)"> 
+  <rect  x="200" y="400" width="200" height="20" style="fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)" />  
+  <circle cx="200" cy="410" r="10" stroke="black" stroke-width="1" fill="lightgrey" /> 
+</g>
+
+<circle cx="400" cy="410" r="10" stroke="black" stroke-width="1" fill="lightgrey" /> 
+<circle cx="400" cy="210" r="11" stroke="black" stroke-width="1" fill="lightgrey" /> 
+
+<text  x="375" y="450" fill="black">(xa, ya)</text>
+<text  x="375" y="180" fill="black">(xb, yb)</text>
+<rect  x="450" y="380" width="80" height="0.8" style="fill:rgb(0,0,0);" />
+<text  x="500" y="376" fill="black">theta</text>
+<rect  x="488" y="370" width="0.8" height="10" style="fill:rgb(0,0,0);" />
+
+<!--    
+<rect  x="0" y="0" width="800" height="0.8" style="fill:rgb(0,0,0);" />  
+<rect  x="0" y="0" width="0.8" height="600" style="fill:rgb(0,0,0);" />  
+
+<rect  x="0" y="595" width="800" height="0.8" style="fill:rgb(0,0,0);" />  
+<rect  x="795" y="0" width="0.8" height="600" style="fill:rgb(0,0,0);" />
+-->
+  
+</svg>
+
+
+

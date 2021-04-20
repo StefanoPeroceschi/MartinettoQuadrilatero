@@ -7,10 +7,14 @@
 /**
 * Struttura Quadrilatero
 * 
-* - contenente h (altezza), l (lunghezza aste), s (spessore aste) 
+* - contenente h (altezza), l (lunghezza aste),
+* - s (spessore aste), d (diametro perni) 
 */
 struct Quadrilatero{
-    double h, l, s;
+    double h, l, s,d;
+    
+    //Parametri necessari alla stampa
+    double theta, xa, ya, xb, yb;
 }
 
 

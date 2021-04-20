@@ -5,8 +5,8 @@
 
 Il programma genera un file SVG riguardante un martinetto meccanico composto da un quadrilatero articolato 
 
-Esempio del file generato `imgMartinetto.svg`
-![](imgMartinetto.svg)
+Esempio del file generato `img_Martinetto_parametri.svg`
+![](img_Martinetto_parametri.svg)
 
 ## Seconda parte
 
