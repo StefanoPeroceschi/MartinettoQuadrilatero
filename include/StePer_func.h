@@ -106,5 +106,12 @@ int StePer_set_d(StePer_Quadrilatero* quad,double new_xa);
 */
 int StePer_set_d(StePer_Quadrilatero* quad,double new_ya);
 
+/**
+*   Salva su file      
+*   la funzione salva il file svg chiedendo un puntatore a Quadrilatero in ingresso
+*   ed il nome del file su cui salvare
+*/
+void StePer_save(StePer_Quadrilatero* quad,std::string filename);
+
 
 #endif // STEPER_FUNC_H

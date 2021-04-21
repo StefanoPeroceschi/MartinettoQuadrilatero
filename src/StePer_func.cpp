@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <fstream>
 #include "../include/StePer_func.h"
 
 /**
@@ -250,7 +251,7 @@ int StePer_set_d(StePer_Quadrilatero* quad,double new_d){
 *   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
 *   altrimenti ritorna 1 e modifica il parametro
 */
-int StePer_set_d(StePer_Quadrilatero* quad,double new_xa){
+int StePer_set_xa(StePer_Quadrilatero* quad,double new_xa){
     if (StePer_check (quad -> h, quad -> l, quad -> s, quad -> d, new_xa, quad -> ya)){
         quad -> xa = new_xa;
         return 1;
@@ -262,10 +263,24 @@ int StePer_set_d(StePer_Quadrilatero* quad,double new_xa){
 *   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
 *   altrimenti ritorna 1 e modifica il parametro
 */
-int StePer_set_d(StePer_Quadrilatero* quad,double new_ya){
+int StePer_set_ya(StePer_Quadrilatero* quad,double new_ya){
     if (StePer_check (quad -> h, quad -> l, quad -> s, quad -> d, quad -> xa, new_ya)){
         quad -> ya = new_ya;
         return 1;
     }
     return 0;
+}
+
+
+/**
+*   Salva su file      
+*   la funzione salva il file svg chiedendo un puntatore a Quadrilatero in ingresso ed il nome del file su cui salvare
+*/
+void StePer_save(StePer_Quadrilatero* quad,std::string filename){
+    std::ofstream file;
+    file.open (filename+".svg");
+    file << StePer_to_svg_init(800,600);
+    file << StePer_to_svg( quad );
+    file << StePer_to_svg_close();
+    file.close();
 }
