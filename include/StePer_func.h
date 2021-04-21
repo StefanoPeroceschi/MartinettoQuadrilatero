@@ -1,7 +1,13 @@
 #ifndef STEPER_FUNC_H
 #define STEPER_FUNC_H
 
+#include <cstring>
+#include <cstdio>
+#include <stdlib.h>
+#include <iomanip>
 
+
+#define PI 3.14159265
 
 
 /**
@@ -33,6 +39,29 @@ int StePer_check (double h, double l, double s, double d, double xa, double ya);
 */
 StePer_Quadrilatero* StePer_init (double h, double l, double s, double d, double xa, double ya);
 
+/**
+* Generazione stringa svg di inizializzazione
+* 
+* la funzione ritorna la stringa con il testo relativo all'inizializzazione del file svg, 
+* in ingresso chiede le dimensioni del file : x y
+* ritorna la stringa se i parametri sono corretti, NULL altrimenti
+*/
+std::string StePer_to_svg_init (int x, int y);
+
+/**
+* Generazione stringa svg del componente
+* 
+* la funzione ritorna la stringa con il testo relativo al componente svg, 
+* non comprende inizializzazione file svg
+*/
+std::string StePer_to_svg (StePer_Quadrilatero* quad);
+
+/**
+* Generazione stringa svg di chiusura
+* 
+* la funzione ritorna la stringa con il testo di chiusura del file svg
+*/
+std::string StePer_to_svg_close ();
 
 
 #endif // STEPER_FUNC_H
