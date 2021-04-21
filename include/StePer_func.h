@@ -29,7 +29,7 @@ struct StePer_Quadrilatero{
 *
 * la funzione ritorna 1 se i parametri sono validi altrimenti ritorna 0 
 */
-int StePer_check (double h, double l, double s, double d, double xa, double ya);
+//int StePer_check (double h, double l, double s, double d, double xa, double ya);
 
 /**
 * Inizializzazione Quadrilatero 
@@ -62,6 +62,49 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad);
 * la funzione ritorna la stringa con il testo di chiusura del file svg
 */
 std::string StePer_to_svg_close ();
+
+
+
+
+/**
+*   Modifica il valore di h      
+*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
+*   altrimenti ritorna 1 e modifica il parametro
+*/
+int StePer_set_h(StePer_Quadrilatero* quad,double new_h);
+
+/**
+*   Modifica il valore di s      
+*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
+*   altrimenti ritorna 1 e modifica il parametro
+*/
+int StePer_set_s(StePer_Quadrilatero* quad,double new_s);
+
+/**
+*   Modifica il valore di l      
+*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
+*   altrimenti ritorna 1 e modifica il parametro
+*/
+int StePer_set_l(StePer_Quadrilatero* quad,double new_l);
+/**
+*   Modifica il valore di d      
+*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
+*   altrimenti ritorna 1 e modifica il parametro
+*/
+int StePer_set_d(StePer_Quadrilatero* quad,double new_d);
+
+/**
+*   Modifica il valore di xa      
+*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
+*   altrimenti ritorna 1 e modifica il parametro
+*/
+int StePer_set_d(StePer_Quadrilatero* quad,double new_xa);
+/**
+*   Modifica il valore di ya      
+*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
+*   altrimenti ritorna 1 e modifica il parametro
+*/
+int StePer_set_d(StePer_Quadrilatero* quad,double new_ya);
 
 
 #endif // STEPER_FUNC_H

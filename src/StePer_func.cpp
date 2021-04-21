@@ -8,7 +8,7 @@
 * Verifica parametri 
 * la funzione ritorna 1 se i parametri sono validi altrimenti ritorna 0 
 */
-int StePer_Check (double h, double l, double s, double d, double xa, double ya){
+int StePer_check (double h, double l, double s, double d, double xa, double ya){
     
     //Check valori negativi
     if(h<=0||l<=0||s<=0||d<=0||xa<0||ya<0){
@@ -48,7 +48,7 @@ int StePer_Check (double h, double l, double s, double d, double xa, double ya){
 * se i parametri sono validi altrimenti ritorna NULL
 */
 StePer_Quadrilatero* StePer_init (double h, double l, double s, double d, double xa, double ya){
-    if(StePer_Check ( h,  l,  s,  d,  xa,  ya)){
+    if(StePer_check ( h,  l,  s,  d,  xa,  ya)){
         StePer_Quadrilatero* quad = new StePer_Quadrilatero;
         quad->h = h;
         quad->l = l;
@@ -195,7 +195,77 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad){
 }
 
   
+/**
+*   Modifica il valore di h      
+*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
+*   altrimenti ritorna 1 e modifica il parametro
+*/
+int StePer_set_h(StePer_Quadrilatero* quad,double new_h){
+    if (StePer_check (new_h, quad -> l, quad -> s, quad -> d, quad -> xa, quad -> ya)){
+        quad -> h = new_h;
+        return 1;
+    }
+    return 0;
+}
 
+/**
+*   Modifica il valore di s      
+*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
+*   altrimenti ritorna 1 e modifica il parametro
+*/
+int StePer_set_s(StePer_Quadrilatero* quad,double new_s){
+    if (StePer_check (quad -> h, quad -> l, new_s, quad -> d, quad -> xa, quad -> ya)){
+        quad -> s = new_s;
+        return 1;
+    }
+    return 0;
+}
 
-
-
+/**
+*   Modifica il valore di l      
+*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
+*   altrimenti ritorna 1 e modifica il parametro
+*/
+int StePer_set_l(StePer_Quadrilatero* quad,double new_l){
+    if (StePer_check (quad -> h, new_l, quad -> s, quad -> d, quad -> xa, quad -> ya)){
+        quad -> l = new_l;
+        return 1;
+    }
+    return 0;
+}
+/**
+*   Modifica il valore di d      
+*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
+*   altrimenti ritorna 1 e modifica il parametro
+*/
+int StePer_set_d(StePer_Quadrilatero* quad,double new_d){
+    if (StePer_check (quad -> h, quad -> l, quad -> s, new_d, quad -> xa, quad -> ya)){
+        quad -> d = new_d;
+        return 1;
+    }
+    return 0;
+}
+/**
+*   Modifica il valore di xa      
+*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
+*   altrimenti ritorna 1 e modifica il parametro
+*/
+int StePer_set_d(StePer_Quadrilatero* quad,double new_xa){
+    if (StePer_check (quad -> h, quad -> l, quad -> s, quad -> d, new_xa, quad -> ya)){
+        quad -> xa = new_xa;
+        return 1;
+    }
+    return 0;
+}
+/**
+*   Modifica il valore di ya      
+*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
+*   altrimenti ritorna 1 e modifica il parametro
+*/
+int StePer_set_d(StePer_Quadrilatero* quad,double new_ya){
+    if (StePer_check (quad -> h, quad -> l, quad -> s, quad -> d, quad -> xa, new_ya)){
+        quad -> ya = new_ya;
+        return 1;
+    }
+    return 0;
+}
