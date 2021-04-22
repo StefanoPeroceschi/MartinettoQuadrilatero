@@ -9,29 +9,33 @@
 
 
 int main(){
-     StePer_Quadrilatero* quad = new StePer_Quadrilatero;
+     StePer_Quadrilatero* quad = new StePer_Quadrilatero ;
 
- /*   StePer_Quadrilatero* quad = StePer_init (40.1234, 250.3453, 20.34534, 19.5464, 400.4563, 450.34543);
+    /* quad = StePer_init (40., 250., 20., 19., 400., 450.);
     if ( quad == NULL ){
         printf("Errore: parametri non corretti\n\n");
-    } */
+    } 
     
-   // StePer_save(quad, "duo");
-    quad = StePer_parse("duo");
+    StePer_save(quad, "template");*/
+    quad = StePer_parse("template");
     std::cout << quad -> h <<std::endl;
     std::cout << quad -> l <<std::endl;
     std::cout << quad -> s <<std::endl;
     std::cout << quad -> d <<std::endl;
     std::cout << quad -> xa <<std::endl;
     std::cout << quad -> ya <<std::endl << std::endl;
+
     StePer_set_h(quad, 300.);
+
     std::cout << quad -> h <<std::endl;
     std::cout << quad -> l <<std::endl;
     std::cout << quad -> s <<std::endl;
     std::cout << quad -> d <<std::endl;
     std::cout << quad -> xa <<std::endl;
     std::cout << quad -> ya <<std::endl << std::endl;
-    StePer_save(quad, "duo1");  
+
+    StePer_save(quad, "template_modificato"); 
+     
     free(quad);
 
     return 0;
