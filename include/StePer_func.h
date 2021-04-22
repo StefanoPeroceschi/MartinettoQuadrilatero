@@ -29,7 +29,7 @@ struct StePer_Quadrilatero{
 *
 * la funzione ritorna 1 se i parametri sono validi altrimenti ritorna 0 
 */
-//int StePer_check (double h, double l, double s, double d, double xa, double ya);
+int StePer_check (double h, double l, double s, double d, double xa, double ya);
 
 /**
 * Inizializzazione Quadrilatero 
@@ -113,5 +113,12 @@ int StePer_set_d(StePer_Quadrilatero* quad,double new_ya);
 */
 void StePer_save(StePer_Quadrilatero* quad,std::string filename);
 
+/**
+*   Carica da file    
+*   la funzione carica il file svg (il cui nome è passato all'ingresso) restituendo
+*   il puntatore al quadrilatero caricato
+*/
+ StePer_Quadrilatero* StePer_parse(std::string filename); 
 
-#endif // STEPER_FUNC_H
+
+#endif 

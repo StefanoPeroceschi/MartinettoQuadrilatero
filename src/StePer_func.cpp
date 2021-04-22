@@ -32,7 +32,7 @@ int StePer_check (double h, double l, double s, double d, double xa, double ya){
     }
     
     //Check valori di xa,ya
-    if(xa > 700 || ya > 590){
+    if(xa > 700 || ya > 590 ){
         return 0;
     }
 
@@ -109,7 +109,7 @@ std::string StePer_to_svg_close (){
 */
 std::string StePer_to_svg (StePer_Quadrilatero* quad){
     std::string out = "";
-    out += "<g transform=\"rotate\(";
+    out += "\n\n<g transform=\"rotate\(";
     out += std::to_string(quad -> theta);
     out += ", ";
     out += std::to_string(quad -> xb);
@@ -151,7 +151,7 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad){
     out += std::to_string(quad -> l);
     out += "\" height=\"";
     out += std::to_string(quad -> s);
-    out += "\" style=\"fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)\" />\n<circle cx=\"";
+    out += "\" style=\"fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)\" />\n\t<circle cx=\"";
     out += std::to_string( (quad -> xa) + (quad -> l) );
     out += "\" cy=\"";
     out += std::to_string(quad -> ya);
@@ -171,7 +171,7 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad){
     out += std::to_string(quad -> l);
     out += "\" height=\"";
     out += std::to_string(quad -> s);
-    out += "\" style=\"fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)\" />\n<circle cx=\"";
+    out += "\" style=\"fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)\" />\n\t<circle cx=\"";
     out += std::to_string( (quad -> xa) - (quad -> l) );
     out += "\" cy=\"";
     out += std::to_string(quad -> ya);
@@ -206,6 +206,9 @@ int StePer_set_h(StePer_Quadrilatero* quad,double new_h){
         quad -> h = new_h;
         return 1;
     }
+    else{
+        printf("StePer_set_h: Errore, nuovo parametro non valido\n\n");
+    }
     return 0;
 }
 
@@ -218,6 +221,9 @@ int StePer_set_s(StePer_Quadrilatero* quad,double new_s){
     if (StePer_check (quad -> h, quad -> l, new_s, quad -> d, quad -> xa, quad -> ya)){
         quad -> s = new_s;
         return 1;
+    }
+    else{
+        printf("StePer_set_s: Errore, nuovo parametro non valido\n\n");
     }
     return 0;
 }
@@ -232,6 +238,9 @@ int StePer_set_l(StePer_Quadrilatero* quad,double new_l){
         quad -> l = new_l;
         return 1;
     }
+    else{
+        printf("StePer_set_l: Errore, nuovo parametro non valido\n\n");
+    }
     return 0;
 }
 /**
@@ -243,6 +252,9 @@ int StePer_set_d(StePer_Quadrilatero* quad,double new_d){
     if (StePer_check (quad -> h, quad -> l, quad -> s, new_d, quad -> xa, quad -> ya)){
         quad -> d = new_d;
         return 1;
+    }
+    else{
+        printf("StePer_set_d: Errore, nuovo parametro non valido\n\n");
     }
     return 0;
 }
@@ -256,6 +268,9 @@ int StePer_set_xa(StePer_Quadrilatero* quad,double new_xa){
         quad -> xa = new_xa;
         return 1;
     }
+    else{
+        printf("StePer_set_xa: Errore, nuovo parametro non valido\n\n");
+    }
     return 0;
 }
 /**
@@ -268,6 +283,9 @@ int StePer_set_ya(StePer_Quadrilatero* quad,double new_ya){
         quad -> ya = new_ya;
         return 1;
     }
+    else{
+        printf("StePer_set_ya: Errore, nuovo parametro non valido\n\n");
+    }
     return 0;
 }
 
@@ -277,10 +295,76 @@ int StePer_set_ya(StePer_Quadrilatero* quad,double new_ya){
 *   la funzione salva il file svg chiedendo un puntatore a Quadrilatero in ingresso ed il nome del file su cui salvare
 */
 void StePer_save(StePer_Quadrilatero* quad,std::string filename){
-    std::ofstream file;
-    file.open (filename+".svg");
-    file << StePer_to_svg_init(800,600);
-    file << StePer_to_svg( quad );
-    file << StePer_to_svg_close();
-    file.close();
+    if( quad != NULL){
+        std::ofstream file;
+        file.open (filename+".svg");
+        file << StePer_to_svg_init(800,600);
+        file << StePer_to_svg( quad );
+        file << StePer_to_svg_close();
+        file.close();
+    }
+    else{
+       printf("StePer_save: Errore, puntatore a Quadrilatero pari a NULL\n\n");
+    }
+}
+
+/**
+*   Carica da file    
+*   la funzione carica il file svg (il cui nome è passato all'ingresso) restituendo
+*   il puntatore al quadrilatero generato se i parametri sono corretti altrimenti ritorna NULL
+*/
+ StePer_Quadrilatero* StePer_parse(std::string	filename){
+    double h, s, l, d, xa, ya, yb;
+    std::string line = "";
+    int line_index = 0;
+
+    std::ifstream f ( filename + ".svg");
+
+	if( !f.good() ){
+		printf("StePer_parse: File non leggibile o non esistente\n");
+		return NULL;
+	}
+
+	if( f.is_open() ){
+
+		while(getline(f, line)){
+            if (line_index == 3){
+            
+                line = line.substr( line.find(",") + 2 );
+                xa = stod( line);
+
+                line = line.substr( line.find(",") + 2 );
+                yb = stod( line);
+            }
+            else if (line_index == 4){
+            
+                line = line.substr( line.find("width=\"") + 7 );
+                l = stod( line);
+
+                line = line.substr( line.find("height") + 8 );
+                s = stod( line);
+               
+            }
+            else if (line_index == 11){
+            
+                line = line.substr( line.find(",") + 2 );
+                line = line.substr( line.find(",") + 2 );
+                ya = stod( line);
+               
+            }
+            else if (line_index == 13){
+            
+                line = line.substr( line.find("r=\"") + 3 );
+                d = stod( line) * 2;
+               
+            }
+            line_index ++;
+        }
+    
+        h = ya - yb; 
+
+        return StePer_init ( h, l, s, d, xa, ya);
+    }
+
+    f.close();
 }
