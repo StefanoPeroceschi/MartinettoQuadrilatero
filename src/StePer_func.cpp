@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <fstream>
+#include <iostream>
 #include "../include/StePer_func.h"
 
 /**
@@ -204,6 +205,9 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad){
 int StePer_set_h(StePer_Quadrilatero* quad,double new_h){
     if (StePer_check (new_h, quad -> l, quad -> s, quad -> d, quad -> xa, quad -> ya)){
         quad -> h = new_h;
+        quad -> yb = quad -> ya - quad -> h;
+        quad -> theta = asin ( (quad -> h) / (2* quad -> l) ) * 180 /PI;
+     
         return 1;
     }
     else{
@@ -236,6 +240,8 @@ int StePer_set_s(StePer_Quadrilatero* quad,double new_s){
 int StePer_set_l(StePer_Quadrilatero* quad,double new_l){
     if (StePer_check (quad -> h, new_l, quad -> s, quad -> d, quad -> xa, quad -> ya)){
         quad -> l = new_l;
+        quad -> theta = asin ((quad -> h)/(2*quad ->l)) * 180 / PI;
+
         return 1;
     }
     else{
@@ -266,6 +272,8 @@ int StePer_set_d(StePer_Quadrilatero* quad,double new_d){
 int StePer_set_xa(StePer_Quadrilatero* quad,double new_xa){
     if (StePer_check (quad -> h, quad -> l, quad -> s, quad -> d, new_xa, quad -> ya)){
         quad -> xa = new_xa;
+        quad -> xb = quad -> xa;
+       
         return 1;
     }
     else{
@@ -281,6 +289,8 @@ int StePer_set_xa(StePer_Quadrilatero* quad,double new_xa){
 int StePer_set_ya(StePer_Quadrilatero* quad,double new_ya){
     if (StePer_check (quad -> h, quad -> l, quad -> s, quad -> d, quad -> xa, new_ya)){
         quad -> ya = new_ya;
+        quad -> yb = quad -> ya - quad -> h;
+        
         return 1;
     }
     else{
@@ -300,6 +310,7 @@ void StePer_save(StePer_Quadrilatero* quad,std::string filename){
         file.open (filename+".svg");
         file << StePer_to_svg_init(800,600);
         file << StePer_to_svg( quad );
+        std::cout<<std::endl<<StePer_to_svg( quad )<<std::endl<<std::endl;
         file << StePer_to_svg_close();
         file.close();
     }
