@@ -1,6 +1,9 @@
 #ifndef STEPER_FUNC_H
 #define STEPER_FUNC_H
 
+#define SVG_X 800
+#define SVG_Y 600
+
 #include <cstring>
 #include <cstdio>
 #include <stdlib.h>
@@ -26,8 +29,7 @@ struct StePer_Quadrilatero{
 
 /**
 * Verifica parametri 
-*
-* la funzione ritorna 1 se i parametri sono validi altrimenti ritorna 0 
+* la funzione ritorna 0 se i parametri sono validi altrimenti ritorna 1 
 */
 int StePer_check (double h, double l, double s, double d, double xa, double ya);
 
@@ -35,7 +37,7 @@ int StePer_check (double h, double l, double s, double d, double xa, double ya);
 * Inizializzazione Quadrilatero 
 * 
 * la funzione ritorna il puntatore al quadrilatero generato 
-* se i parametri sono validi altrimenti ritorna NULL
+* se i parametri sono validi altrimenti ritorna NULL   ALLOCA DINAMICAMENTE UN QUADRILATERO
 */
 StePer_Quadrilatero* StePer_init (double h, double l, double s, double d, double xa, double ya);
 
@@ -43,10 +45,8 @@ StePer_Quadrilatero* StePer_init (double h, double l, double s, double d, double
 * Generazione stringa svg di inizializzazione
 * 
 * la funzione ritorna la stringa con il testo relativo all'inizializzazione del file svg, 
-* in ingresso chiede le dimensioni del file : x y
-* ritorna la stringa se i parametri sono corretti, NULL altrimenti
 */
-std::string StePer_to_svg_init (int x, int y);
+std::string StePer_to_svg_init ();
 
 /**
 * Generazione stringa svg del componente
@@ -68,55 +68,55 @@ std::string StePer_to_svg_close ();
 
 /**
 *   Modifica il valore di h      
-*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
-*   altrimenti ritorna 1 e modifica il parametro
+*   se il nuovo valore è incompatibile ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
 */
 int StePer_set_h(StePer_Quadrilatero* quad,double new_h);
 
 /**
 *   Modifica il valore di s      
-*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
-*   altrimenti ritorna 1 e modifica il parametro
+*   se il nuovo valore è incompatibile ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
 */
 int StePer_set_s(StePer_Quadrilatero* quad,double new_s);
 
 /**
 *   Modifica il valore di l      
-*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
-*   altrimenti ritorna 1 e modifica il parametro
+*   se il nuovo valore è incompatibile ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
 */
 int StePer_set_l(StePer_Quadrilatero* quad,double new_l);
 /**
 *   Modifica il valore di d      
-*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
-*   altrimenti ritorna 1 e modifica il parametro
+*   se il nuovo valore è incompatibile ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
 */
 int StePer_set_d(StePer_Quadrilatero* quad,double new_d);
 
 /**
 *   Modifica il valore di xa      
-*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
-*   altrimenti ritorna 1 e modifica il parametro
+*   se il nuovo valore è incompatibile ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
 */
-int StePer_set_d(StePer_Quadrilatero* quad,double new_xa);
+int StePer_set_xa(StePer_Quadrilatero* quad,double new_xa);
 /**
 *   Modifica il valore di ya      
-*   se il nuovo valore è incompatibile ritorna 0 e non modifica il componente 
-*   altrimenti ritorna 1 e modifica il parametro
+*   se il nuovo valore è incompatibile ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
 */
-int StePer_set_d(StePer_Quadrilatero* quad,double new_ya);
+int StePer_set_ya(StePer_Quadrilatero* quad,double new_ya);
 
 /**
 *   Salva su file      
-*   la funzione salva il file svg chiedendo un puntatore a Quadrilatero in ingresso
-*   ed il nome del file su cui salvare
+*   la funzione salva il file svg chiedendo un puntatore a Quadrilatero in ingresso ed il nome del file su cui salvare
+*   se il puntatore è nullo non viene generato alcun file e ritorna 1 , altrimenti ritorna 0
 */
-void StePer_save(StePer_Quadrilatero* quad,std::string filename);
+int StePer_save(StePer_Quadrilatero* quad,std::string filename);
 
 /**
 *   Carica da file    
 *   la funzione carica il file svg (il cui nome è passato all'ingresso) restituendo
-*   il puntatore al quadrilatero caricato
+*   il puntatore al quadrilatero caricato   ALLOCA DINAMICAMENTE UN QUADRILATERO
 */
  StePer_Quadrilatero* StePer_load_from_file(std::string filename); 
 
