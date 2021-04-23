@@ -324,7 +324,7 @@ void StePer_save(StePer_Quadrilatero* quad,std::string filename){
 *   la funzione carica il file svg (il cui nome è passato all'ingresso) restituendo
 *   il puntatore al quadrilatero generato se i parametri sono corretti altrimenti ritorna NULL
 */
- StePer_Quadrilatero* StePer_parse(std::string	filename){
+ StePer_Quadrilatero* StePer_load_from_file(std::string	filename){
     double h, s, l, d, xa, ya, yb;
     std::string line = "";
     int line_index = 0;
@@ -379,3 +379,4 @@ void StePer_save(StePer_Quadrilatero* quad,std::string filename){
 
     f.close();
 }
+
