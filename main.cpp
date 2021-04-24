@@ -8,7 +8,7 @@
 
 
 int main(){
-    int choice;
+    char choice;
     StePer_Quadrilatero* quad = NULL;
     do{
         std::cout<<"\nScegli azione premendo il comando corrispondente []:\n\n";
@@ -27,7 +27,7 @@ int main(){
 
         switch (choice)
         {
-        case 1:{
+        case '1':{
             double h, l, s, d, xa, ya;
             do{
                 std::cout<<"\nInserire h\n";
@@ -56,7 +56,7 @@ int main(){
             
             break;
         }
-        case 2:{
+        case '2':{
             std::string filename;
             
                 
@@ -77,7 +77,7 @@ int main(){
             
             break;
         }
-        case 3:{
+        case '3':{
             if(quad == NULL){
                 std::cout<<"\nERRORE: necessario inizializzare un quadrilatero per eseguire salvataggio\n";
                 break;
@@ -90,7 +90,7 @@ int main(){
             
             break;
         }
-        case 4:{
+        case '4':{
             if(quad== NULL){
                 std::cout<<"\nERRORE: necessario prima inizializzare un quadrilatero\n";  
                 break;   
@@ -103,7 +103,7 @@ int main(){
             }            
             break;
         }
-        case 5:{
+        case '5':{
             if(quad== NULL){
                 std::cout<<"\nERRORE: necessario prima inizializzare un quadrilatero\n";  
                 break;   
@@ -116,7 +116,7 @@ int main(){
             }            
             break;
         }
-        case 6:{
+        case '6':{
             if(quad== NULL){
                 std::cout<<"\nERRORE: necessario prima inizializzare un quadrilatero\n";  
                 break;   
@@ -129,7 +129,7 @@ int main(){
             }            
             break;
         }
-        case 7:{
+        case '7':{
             if(quad== NULL){
                 std::cout<<"\nERRORE: necessario prima inizializzare un quadrilatero\n";  
                 break;   
@@ -142,7 +142,7 @@ int main(){
             }            
             break;
         }
-        case 8:{
+        case '8':{
             if(quad== NULL){
                 std::cout<<"\nERRORE: necessario prima inizializzare un quadrilatero\n";  
                 break;   
@@ -155,7 +155,7 @@ int main(){
             }            
             break;
         }
-        case 9:{
+        case '9':{
             if(quad== NULL){
                 std::cout<<"\nERRORE: necessario prima inizializzare un quadrilatero\n";  
                 break;   
@@ -171,7 +171,7 @@ int main(){
         }
         
 
-    }while(choice != 0);
+    }while(choice != '0');
     
 
     free(quad);
