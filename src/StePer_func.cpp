@@ -151,13 +151,13 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad, bool with_measures){
         out += "\" y=\"";
         out += std::to_string(quad->yb -(quad->s)/2 -OFFSET-2);
         out += "\" fill=\"black\">";
-        out += std::to_string(quad->l);
+        out += std::to_string((int)(quad->l));
         out += "</text>\n\t<text x=\"";
         out += std::to_string(quad->xa + quad->l + OFFSET+2);
         out += "\" y=\"";
         out += std::to_string(quad->yb);
         out += "\" fill=\"black\">";
-        out += std::to_string(quad->s);
+        out += std::to_string((int)(quad->s));
         out += "</text>\n";
     }
 
@@ -231,7 +231,7 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad, bool with_measures){
 
     if(with_measures){
         out += "<rect  x=\"";
-        out += std::to_string(quad->xa -(quad->l * cos(quad->theta))- (quad-> s)/2 - OFFSET);
+        out += std::to_string(quad->xa -(quad->l * cos(quad->theta * 2* PI /360))- (quad-> s)/2 - OFFSET);
         out += "\" y=\"";
         out += std::to_string(quad->yb);
         out += "\" width=\"";
@@ -239,11 +239,11 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad, bool with_measures){
         out += "\" height=\"";
         out += std::to_string(quad->h);
         out += "\" style=\"fill:rgb(0,0,0);\" />\n<text x=\"";
-        out += std::to_string(quad->xa -(quad->l * cos(quad->theta))- (quad-> s)/2 - OFFSET-12);
+        out += std::to_string(quad->xa -(quad->l * cos(quad->theta * 2* PI /360))- (quad-> s)/2 - OFFSET-22);
         out += "\" y=\"";
         out += std::to_string(quad->yb + (quad->h)/2);
         out += "\" fill=\"black\">";
-        out += std::to_string(quad->h);
+        out += std::to_string((int)(quad->h));
         out += "</text>\n\n<rect  x=\"";
         out += std::to_string(quad->xa - (quad->d)/2);
         out += "\" y=\"";
@@ -255,9 +255,9 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad, bool with_measures){
         out += "\" style=\"fill:rgb(0,0,0);\" />\n<text  x=\"";
         out += std::to_string(quad->xa);
         out += "\" y=\"";
-        out += std::to_string(quad->ya + (quad->s)/2 + OFFSET+ 7);
+        out += std::to_string(quad->ya + (quad->s)/2 + OFFSET+ 12);
         out += "\" fill=\"black\">";
-        out += std::to_string(quad->d);
+        out += std::to_string((int)(quad->d));
         out += "</text>\n\n\n";
     }
     return out;    
