@@ -149,7 +149,7 @@ TEST_CASE("StePer_set_xa deve modificare il parametro se in ingresso ha valori v
 TEST_CASE("StePer_set_ya non deve modificare il parametro se in ingresso ha valori non validi ", "[func]") {
     StePer_Quadrilatero* quad;
     quad=StePer_init(200.1,200.2,13.3,12.4,400.5,500.6);
-    StePer_set_ya(quad,700.);
+    StePer_set_ya(quad,720.);
     REQUIRE(quad->ya==Approx(500.6) );    
     free(quad);
 }
