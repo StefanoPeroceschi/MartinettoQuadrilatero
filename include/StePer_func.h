@@ -3,6 +3,8 @@
 
 #define SVG_X 800
 #define SVG_Y 600
+#define OFFSET 20
+#define THICKNESS 0.8
 
 #include <cstring>
 #include <cstdio>
@@ -54,7 +56,7 @@ std::string StePer_to_svg_init ();
 * la funzione ritorna la stringa con il testo relativo al componente svg, 
 * non comprende inizializzazione file svg
 */
-std::string StePer_to_svg (StePer_Quadrilatero* quad);
+std::string StePer_to_svg (StePer_Quadrilatero* , bool );
 
 /**
 * Generazione stringa svg di chiusura
@@ -111,7 +113,7 @@ int StePer_set_ya(StePer_Quadrilatero* quad,double new_ya);
 *   la funzione salva il file svg chiedendo un puntatore a Quadrilatero in ingresso ed il nome del file su cui salvare
 *   se il puntatore è nullo non viene generato alcun file e ritorna 1 , altrimenti ritorna 0
 */
-int StePer_save(StePer_Quadrilatero* quad,std::string filename);
+int StePer_save(StePer_Quadrilatero* quad,std::string filename, bool);
 
 /**
 *   Carica da file    
