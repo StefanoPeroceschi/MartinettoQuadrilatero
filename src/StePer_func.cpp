@@ -20,7 +20,7 @@ int StePer_check (double h, double l, double s, double d, double xa, double ya){
     }
 
     //Check valori di h
-    if(h < 1.5*s || h < 1.5*d || h > 2*l-s ){
+    if(h < 1.5*s || h > (2*l)-s ){
         return 1;
     }
 
@@ -40,7 +40,7 @@ int StePer_check (double h, double l, double s, double d, double xa, double ya){
     }
     
     //Check valori di xa,ya
-    if(xa > 700 || ya > 590 ){
+    if(xa > 800 || ya > 600 ){
         return 1;
     }
 
