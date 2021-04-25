@@ -83,10 +83,18 @@ int main(){
                 break;
             } 
             std::string filename;
+            char choice;
+            bool with_measures;
+
+            
             std::cout<<"\nInserire nome del file su cui salvare (senza estensione)\n"; 
             std::cin>>filename;
+            std::cout<<"\nSi vogliono salvare anche le misure? [s/n]\n"; 
+            std::cin>>choice;
+            choice== 's' ? with_measures=true : with_measures=false;
+            
 
-            StePer_save(quad, filename);
+            StePer_save(quad, filename, with_measures);
             
             break;
         }
