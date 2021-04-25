@@ -15,7 +15,7 @@
 int StePer_check (double h, double l, double s, double d, double xa, double ya){
     
     //Check valori negativi
-    if(h<=0||l<=0||s<=0||d<=0||xa<0||ya<0){
+    if(h<=0||l<=0||s<=0||d<=0||xa<0){
         return 1;
     }
 
@@ -40,10 +40,10 @@ int StePer_check (double h, double l, double s, double d, double xa, double ya){
     }
     
     //Check valori di xa,ya
-    if(xa > 800 || ya > 600 ){
+    if(xa > SVG_X || ya > SVG_Y + h/2 ||ya-h< -h/2){
         return 1;
     }
-
+    
     
     return 0;
 }
@@ -253,7 +253,7 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad, bool with_measures){
         out += "\" height=\"";
         out += std::to_string(THICKNESS);
         out += "\" style=\"fill:rgb(0,0,0);\" />\n<text  x=\"";
-        out += std::to_string(quad->xa);
+        out += std::to_string(quad->xa - 8);
         out += "\" y=\"";
         out += std::to_string(quad->ya + (quad->s)/2 + OFFSET+ 12);
         out += "\" fill=\"black\">";
@@ -376,6 +376,7 @@ int StePer_save(StePer_Quadrilatero* quad,std::string filename, bool with_measur
     double h, s, l, d, xa, ya, yb;
     std::string line = "";
     int line_index = 0;
+    bool with_measures;
 
     std::ifstream f ( filename + ".svg");
 
@@ -384,10 +385,8 @@ int StePer_save(StePer_Quadrilatero* quad,std::string filename, bool with_measur
 	}
 
 	if( f.is_open() ){
-
 		while(getline(f, line)){
-            if (line_index == 3){
-            
+            if (line_index == 3){            
                 line = line.substr( line.find(",") + 2 );
                 xa = stod( line);
 
@@ -403,14 +402,31 @@ int StePer_save(StePer_Quadrilatero* quad,std::string filename, bool with_measur
                 s = stod( line);
                
             }
-            else if (line_index == 11){
+            else if (line_index == 5){
+                line[0]=='<'? with_measures=false : with_measures=true;
+               
+            }
+            else if (line_index == 11 && with_measures==false){
             
                 line = line.substr( line.find(",") + 2 );
                 line = line.substr( line.find(",") + 2 );
                 ya = stod( line);
                
             }
-            else if (line_index == 13){
+            else if (line_index == 13 && with_measures==false){
+            
+                line = line.substr( line.find("r=\"") + 3 );
+                d = stod( line) * 2;
+               
+            }
+            else if (line_index == 15 && with_measures==true){
+            
+                line = line.substr( line.find(",") + 2 );
+                line = line.substr( line.find(",") + 2 );
+                ya = stod( line);
+               
+            }
+            else if (line_index == 17 && with_measures==true){
             
                 line = line.substr( line.find("r=\"") + 3 );
                 d = stod( line) * 2;
