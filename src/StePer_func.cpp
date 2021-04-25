@@ -15,7 +15,7 @@
 int StePer_check (double h, double l, double s, double d, double xa, double ya){
     
     //Check valori negativi
-    if(h<=0||l<=0||s<=0||d<=0||xa<0||ya<0){
+    if(h<=0||l<=0||s<=0||d<=0||xa<0){
         return 1;
     }
 
@@ -40,10 +40,10 @@ int StePer_check (double h, double l, double s, double d, double xa, double ya){
     }
     
     //Check valori di xa,ya
-    if(xa > 800 || ya > 600 ){
+    if(xa > SVG_X || ya > SVG_Y + h/2 ||ya-h< -h/2){
         return 1;
     }
-
+    
     
     return 0;
 }
@@ -112,7 +112,7 @@ std::string StePer_to_svg_close (){
 * la funzione richiede un puntatore a quadrilatero in ingresso e ritorna la stringa con il testo relativo al componente svg, 
 * non comprende l'inizializzazione del file svg
 */
-std::string StePer_to_svg (StePer_Quadrilatero* quad){
+std::string StePer_to_svg (StePer_Quadrilatero* quad, bool with_measures){
     std::string out = "";
     out += "\n\n<g transform=\"rotate\(";
     out += std::to_string(quad -> theta);
@@ -128,7 +128,40 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad){
     out += std::to_string(quad-> l);
     out += "\" height=\"";
     out += std::to_string(quad->s);
-    out += "\" style=\"fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)\" />\n</g>\n\n<g transform=\"rotate\(";
+    out += "\" style=\"fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)\" />\n";
+    if(with_measures){
+        out += "\t<rect  x=\"";
+        out += std::to_string(quad->xa);
+        out += "\" y=\"";
+        out += std::to_string(quad->yb -(quad->s)/2 -OFFSET);
+        out += "\" width=\"";
+        out += std::to_string(quad->l);
+        out += "\" height=\"";
+        out += std::to_string(THICKNESS);
+        out += "\" style=\"fill:rgb(0,0,0);\" />\n\t<rect  x=\"";
+        out += std::to_string(quad->xa + quad->l + OFFSET);
+        out += "\" y=\"";
+        out += std::to_string(quad->yb - (quad->s)/2);
+        out += "\" width=\"";
+        out += std::to_string(THICKNESS);
+        out += "\" height=\"";
+        out += std::to_string(quad->s);
+        out += "\" style=\"fill:rgb(0,0,0);\" />\n\t<text x=\"";
+        out += std::to_string(quad->xa + (quad->l)/2);
+        out += "\" y=\"";
+        out += std::to_string(quad->yb -(quad->s)/2 -OFFSET-2);
+        out += "\" fill=\"black\">";
+        out += std::to_string((int)(quad->l));
+        out += "</text>\n\t<text x=\"";
+        out += std::to_string(quad->xa + quad->l + OFFSET+2);
+        out += "\" y=\"";
+        out += std::to_string(quad->yb);
+        out += "\" fill=\"black\">";
+        out += std::to_string((int)(quad->s));
+        out += "</text>\n";
+    }
+
+    out += "</g>\n\n<g transform=\"rotate\(";
     out += std::to_string(-(quad -> theta));
     out += ", ";
     out += std::to_string(quad -> xb);
@@ -194,9 +227,39 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad){
     out += std::to_string(quad -> yb);
     out += "\" r=\"";
     out += std::to_string( (quad -> d) / 2 );
-    out += "\" stroke=\"black\" stroke-width=\"1\" fill=\"lightgrey\" />\n\n\n";
+    out += "\" stroke=\"black\" stroke-width=\"1\" fill=\"lightgrey\" />\n\n";
 
-
+    if(with_measures){
+        out += "<rect  x=\"";
+        out += std::to_string(quad->xa -(quad->l * cos(quad->theta * 2* PI /360))- (quad-> s)/2 - OFFSET);
+        out += "\" y=\"";
+        out += std::to_string(quad->yb);
+        out += "\" width=\"";
+        out += std::to_string(THICKNESS);
+        out += "\" height=\"";
+        out += std::to_string(quad->h);
+        out += "\" style=\"fill:rgb(0,0,0);\" />\n<text x=\"";
+        out += std::to_string(quad->xa -(quad->l * cos(quad->theta * 2* PI /360))- (quad-> s)/2 - OFFSET-22);
+        out += "\" y=\"";
+        out += std::to_string(quad->yb + (quad->h)/2);
+        out += "\" fill=\"black\">";
+        out += std::to_string((int)(quad->h));
+        out += "</text>\n\n<rect  x=\"";
+        out += std::to_string(quad->xa - (quad->d)/2);
+        out += "\" y=\"";
+        out += std::to_string(quad->ya + (quad->s)/2 + OFFSET);
+        out += "\" width=\"";
+        out += std::to_string(quad->d);
+        out += "\" height=\"";
+        out += std::to_string(THICKNESS);
+        out += "\" style=\"fill:rgb(0,0,0);\" />\n<text  x=\"";
+        out += std::to_string(quad->xa - 8);
+        out += "\" y=\"";
+        out += std::to_string(quad->ya + (quad->s)/2 + OFFSET+ 12);
+        out += "\" fill=\"black\">";
+        out += std::to_string((int)(quad->d));
+        out += "</text>\n\n\n";
+    }
     return out;    
 }
 
@@ -291,12 +354,12 @@ int StePer_set_ya(StePer_Quadrilatero* quad,double new_ya){
 *   la funzione salva il file svg chiedendo un puntatore a Quadrilatero in ingresso ed il nome del file su cui salvare
 *   se il puntatore è nullo non viene generato alcun file e ritorna 1 , altrimenti ritorna 0
 */
-int StePer_save(StePer_Quadrilatero* quad,std::string filename){
+int StePer_save(StePer_Quadrilatero* quad,std::string filename, bool with_measures){
     if( quad != NULL){
         std::ofstream file;
         file.open (filename+".svg");
         file << StePer_to_svg_init();
-        file << StePer_to_svg( quad );
+        file << StePer_to_svg( quad, with_measures);
         file << StePer_to_svg_close();
         file.close();
         return 0;
@@ -313,6 +376,7 @@ int StePer_save(StePer_Quadrilatero* quad,std::string filename){
     double h, s, l, d, xa, ya, yb;
     std::string line = "";
     int line_index = 0;
+    bool with_measures;
 
     std::ifstream f ( filename + ".svg");
 
@@ -321,10 +385,8 @@ int StePer_save(StePer_Quadrilatero* quad,std::string filename){
 	}
 
 	if( f.is_open() ){
-
 		while(getline(f, line)){
-            if (line_index == 3){
-            
+            if (line_index == 3){            
                 line = line.substr( line.find(",") + 2 );
                 xa = stod( line);
 
@@ -340,14 +402,31 @@ int StePer_save(StePer_Quadrilatero* quad,std::string filename){
                 s = stod( line);
                
             }
-            else if (line_index == 11){
+            else if (line_index == 5){
+                line[0]=='<'? with_measures=false : with_measures=true;
+               
+            }
+            else if (line_index == 11 && with_measures==false){
             
                 line = line.substr( line.find(",") + 2 );
                 line = line.substr( line.find(",") + 2 );
                 ya = stod( line);
                
             }
-            else if (line_index == 13){
+            else if (line_index == 13 && with_measures==false){
+            
+                line = line.substr( line.find("r=\"") + 3 );
+                d = stod( line) * 2;
+               
+            }
+            else if (line_index == 15 && with_measures==true){
+            
+                line = line.substr( line.find(",") + 2 );
+                line = line.substr( line.find(",") + 2 );
+                ya = stod( line);
+               
+            }
+            else if (line_index == 17 && with_measures==true){
             
                 line = line.substr( line.find("r=\"") + 3 );
                 d = stod( line) * 2;

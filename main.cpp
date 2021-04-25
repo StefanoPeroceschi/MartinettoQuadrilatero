@@ -32,16 +32,52 @@ int main(){
             do{
                 std::cout<<"\nInserire h\n";
                 std::cin>> h;
+                while(!(std::cin.good())){
+		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
+		            std::cin.clear();
+      		        while (std::cin.get() != '\n');
+		            std::cin>>h;
+	            }
                 std::cout<<"\nInserire l\n";
                 std::cin>> l;
+                while(!(std::cin.good())){
+		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
+		            std::cin.clear();
+      		        while (std::cin.get() != '\n');
+		            std::cin>>l;
+	         }
                 std::cout<<"\nInserire s\n";
                 std::cin>> s;
+                while(!(std::cin.good())){
+		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
+		            std::cin.clear();
+      		        while (std::cin.get() != '\n');
+		            std::cin>>s;
+	            }
                 std::cout<<"\nInserire d\n";
                 std::cin>> d;
+                while(!(std::cin.good())){
+		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
+		            std::cin.clear();
+      		        while (std::cin.get() != '\n');
+		            std::cin>>d;
+	            }
                 std::cout<<"\nInserire xa\n";
                 std::cin>> xa;
+                while(!(std::cin.good())){
+		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
+		            std::cin.clear();
+      		        while (std::cin.get() != '\n');
+		            std::cin>>xa;
+	            }
                 std::cout<<"\nInserire ya\n";
                 std::cin>> ya;
+                while(!(std::cin.good())){
+		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
+		            std::cin.clear();
+      		        while (std::cin.get() != '\n');
+		            std::cin>>ya;
+	            }
 
                 if(quad != NULL){
                     free (quad);
@@ -51,9 +87,9 @@ int main(){
 
                 if(quad == NULL){
                     std::cout<<"\nErrore: parametri non validi, reinserire i valori\n";
-                }                
-            }while(quad == NULL);           
-            
+                    break;
+                }
+            }while(quad==NULL);
             break;
         }
         case '2':{
@@ -83,10 +119,18 @@ int main(){
                 break;
             } 
             std::string filename;
+            char choice;
+            bool with_measures;
+
+            
             std::cout<<"\nInserire nome del file su cui salvare (senza estensione)\n"; 
             std::cin>>filename;
+            std::cout<<"\nSi vogliono salvare anche le misure? [s/n]\n"; 
+            std::cin>>choice;
+            choice== 's' ? with_measures=true : with_measures=false;
+            
 
-            StePer_save(quad, filename);
+            StePer_save(quad, filename, with_measures);
             
             break;
         }

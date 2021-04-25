@@ -43,9 +43,19 @@ TEST_CASE("Salvado e ricaricando un quadrilatero devo riottenere il quadrilatero
     StePer_Quadrilatero* quad;
     quad=StePer_init(200.1,200.2,13.3,12.4,400.5,500.6);
 
-    StePer_save(quad, "test_cmake");
+    StePer_save(quad, "test_cmake_with_measures",true);
+    StePer_save(quad, "test_cmake_without_measures",false);
     free ( quad );
-    quad=StePer_load_from_file("test_cmake");
+    quad=StePer_load_from_file("test_cmake_with_measures");
+
+    REQUIRE( quad->h==Approx(200.1));
+    REQUIRE( quad->l==Approx(200.2));
+    REQUIRE( quad->s==Approx(13.3));
+    REQUIRE( quad->d==Approx(12.4));
+    REQUIRE( quad->xa==Approx(400.5));
+    REQUIRE( quad->ya==Approx(500.6));   
+    free ( quad );
+    quad=StePer_load_from_file("test_cmake_without_measures");
 
     REQUIRE( quad->h==Approx(200.1));
     REQUIRE( quad->l==Approx(200.2));
@@ -139,7 +149,7 @@ TEST_CASE("StePer_set_xa deve modificare il parametro se in ingresso ha valori v
 TEST_CASE("StePer_set_ya non deve modificare il parametro se in ingresso ha valori non validi ", "[func]") {
     StePer_Quadrilatero* quad;
     quad=StePer_init(200.1,200.2,13.3,12.4,400.5,500.6);
-    StePer_set_ya(quad,700.);
+    StePer_set_ya(quad,720.);
     REQUIRE(quad->ya==Approx(500.6) );    
     free(quad);
 }
