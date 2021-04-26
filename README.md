@@ -9,6 +9,7 @@ Esempio del file generato `img_Martinetto_parametri.svg`
 ![](img_Martinetto_parametri.svg)
 
 E' possibile inoltre tramite la funzione `StePer_save_scrissorlift()` salvare un file relativo ad un sollevatore pantografo
+
 Esempio del file generato `img_pantografo.svg`
 ![](img_pantografo.svg)
 
