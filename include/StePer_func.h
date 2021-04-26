@@ -122,5 +122,12 @@ int StePer_save(StePer_Quadrilatero* quad,std::string filename, bool);
 */
  StePer_Quadrilatero* StePer_load_from_file(std::string filename); 
 
+ /**
+*   Salva su file scrissor lift      
+*   la funzione salva il file svg del meccanismo chiedendo un puntatore a Quadrilatero, il numero di segmentio ed il nome del file su cui salvare
+*   se il puntatore è nullo non viene generato alcun file e ritorna 1 , altrimenti ritorna 0
+*/
+int StePer_save_scrissorlift(StePer_Quadrilatero* quad,std::string filename, int n_segmenti);
+
 
 #endif 
