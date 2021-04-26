@@ -30,6 +30,17 @@ struct StePer_Quadrilatero{
 };
 
 /**
+* Struttura ScrissorLift
+* 
+* contenente quad (puntatore a quadrilatero), n (numero quadrilateri),
+*
+*/
+struct StePer_ScrissorLift{
+    StePer_Quadrilatero* quad;
+    int n_quad;
+};
+
+/**
 * Verifica parametri 
 * la funzione ritorna 0 se i parametri sono validi altrimenti ritorna 1 
 */
@@ -53,10 +64,12 @@ std::string StePer_to_svg_init ();
 /**
 * Generazione stringa svg del componente
 * 
-* la funzione ritorna la stringa con il testo relativo al componente svg, 
+* la funzione ritorna la stringa con il testo relativo al componente svg
+* in ingresso chiede un puntatore a quadrilatero, un flag per la stampa delle misure ed un carattere per la stampa usato per la stampa 
+* del quadrilatero nello ScrissorLift, 
 * non comprende inizializzazione file svg
 */
-std::string StePer_to_svg (StePer_Quadrilatero* , bool );
+std::string StePer_to_svg (StePer_Quadrilatero* , bool , char ='n');
 
 /**
 * Generazione stringa svg di chiusura
