@@ -15,6 +15,7 @@ int main(){
         std::cout<<"[1]\tInizializza quadrilatero (ATTENZIONE elimina quadrilatero corrente)\n";
         std::cout<<"[2]\tCarica quadrilatero da file (ATTENZIONE elimina quadrilatero corrente)\n";
         std::cout<<"[3]\tSalva quadrilatero su file\n";
+        std::cout<<"[a]\tSalva scrissor lift su file\n";
         std::cout<<"[4]\tImposta nuova altezza h\n";
         std::cout<<"[5]\tImposta nuova lunghezza aste l\n";
         std::cout<<"[6]\tImposta nuovo spesore aste s\n";
@@ -210,6 +211,30 @@ int main(){
             if(StePer_set_ya(quad, x)){
                 std::cout<<"\nERRORE: valore non valido\nIl quadrilatero non è stato modificato\n";  
             }            
+            break;
+        }
+        case 'a':{
+            if(quad == NULL){
+                std::cout<<"\nERRORE: necessario inizializzare un quadrilatero per eseguire salvataggio\n";
+                break;
+            } 
+            std::string filename;
+            bool with_measures;
+            int n_segmenti;
+
+            
+            std::cout<<"\nInserire nome del file su cui salvare (senza estensione)\n"; 
+            std::cin>>filename;
+            std::cout<<"\nInserire numero di segmenti\n"; 
+            std::cin>>n_segmenti;
+            while(!(std::cin.good())){
+		        std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
+		        std::cin.clear();
+      		    while (std::cin.get() != '\n');
+		        std::cin>>n_segmenti;
+	        }
+            StePer_save_scrissorlift(quad, filename, n_segmenti);
+            
             break;
         }
         }
