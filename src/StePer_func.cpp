@@ -453,10 +453,10 @@ int StePer_save_scrissorlift(StePer_Quadrilatero* quad,std::string filename, int
         std::ofstream file;
         file.open (filename+".svg");
         file << StePer_to_svg_init();
-        for(int i = 0; i<n_segmenti; i++){
+        for(int i = n_segmenti-1; i>=0; i--){
             StePer_Quadrilatero* local= StePer_init(quad->h,quad->l,quad->s,quad->d,quad->xa, SVG_Y + (quad->h) / 2 - (quad->h)*i);
             file << StePer_to_svg( local, false);
-
+            free(local);
         }
         file << StePer_to_svg_close();
         file.close();
