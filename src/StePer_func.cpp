@@ -20,7 +20,7 @@ int StePer_check (double h, double l, double s, double d, double xa, double ya){
     }
 
     //Check valori di h
-    if(h < 1.5*s || h > (2*l)-s ){
+    if(h < 1.3*s || h > (2*l)-s ){
         return 1;
     }
 
@@ -109,7 +109,7 @@ std::string StePer_to_svg_close (){
 /**
 * Generazione stringa svg
 * 
-* la funzione richiede un puntatore a quadrilatero in ingresso e ritorna la stringa con il testo relativo al componente svg, 
+* la funzione richiede un puntatore a quadrilatero in ingresso ed il flag per stampare le misure e ritorna la stringa con il testo relativo al componente svg, 
 * non comprende l'inizializzazione del file svg
 */
 std::string StePer_to_svg (StePer_Quadrilatero* quad, bool with_measures){
@@ -351,7 +351,7 @@ int StePer_set_ya(StePer_Quadrilatero* quad,double new_ya){
 
 /**
 *   Salva su file      
-*   la funzione salva il file svg chiedendo un puntatore a Quadrilatero in ingresso ed il nome del file su cui salvare
+*   la funzione salva il file svg chiedendo un puntatore a Quadrilatero in ingresso, il nome del file su cui salvare ed il flag per salvare le misure
 *   se il puntatore è nullo non viene generato alcun file e ritorna 1 , altrimenti ritorna 0
 */
 int StePer_save(StePer_Quadrilatero* quad,std::string filename, bool with_measures){
@@ -441,5 +441,27 @@ int StePer_save(StePer_Quadrilatero* quad,std::string filename, bool with_measur
     }
 
     f.close();
+}
+
+/**
+*   Salva su file scrissor lift      
+*   la funzione salva il file svg del meccanismo chiedendo un puntatore a Quadrilatero, il numero di segmentio ed il nome del file su cui salvare
+*   se il puntatore è nullo non viene generato alcun file e ritorna 1 , altrimenti ritorna 0
+*/
+int StePer_save_scrissorlift(StePer_Quadrilatero* quad,std::string filename, int n_segmenti){
+    if( quad != NULL){
+        std::ofstream file;
+        file.open (filename+".svg");
+        file << StePer_to_svg_init();
+        for(int i = 0; i<n_segmenti; i++){
+            StePer_Quadrilatero* local= StePer_init(quad->h,quad->l,quad->s,quad->d,quad->xa, SVG_Y + (quad->h) / 2 - (quad->h)*i);
+            file << StePer_to_svg( local, false);
+
+        }
+        file << StePer_to_svg_close();
+        file.close();
+        return 0;
+    }
+    return 1;
 }
 
