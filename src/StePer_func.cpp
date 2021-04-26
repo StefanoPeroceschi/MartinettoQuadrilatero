@@ -112,7 +112,7 @@ std::string StePer_to_svg_close (){
 * la funzione richiede un puntatore a quadrilatero in ingresso ed il flag per stampare le misure e ritorna la stringa con il testo relativo al componente svg, 
 * non comprende l'inizializzazione del file svg
 */
-std::string StePer_to_svg (StePer_Quadrilatero* quad, bool with_measures){
+std::string StePer_to_svg (StePer_Quadrilatero* quad, bool with_measures, char sl){
     std::string out = "";
     out += "\n\n<g transform=\"rotate\(";
     out += std::to_string(quad -> theta);
@@ -120,15 +120,18 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad, bool with_measures){
     out += std::to_string(quad -> xb);
     out += ", ";
     out += std::to_string(quad -> yb);
-    out += ")\">\n\t<rect  x=\"";
-    out += std::to_string(quad -> xb); 
-    out += "\" y=\"";
-    out += std::to_string(quad -> yb - ( (quad -> s)/2 ) );
-    out += "\" width=\"";
-    out += std::to_string(quad-> l);
-    out += "\" height=\"";
-    out += std::to_string(quad->s);
-    out += "\" style=\"fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)\" />\n";
+    out += ")\">\n\t";
+    if ( sl != 'u'){
+        out += "<rect  x=\"";
+        out += std::to_string(quad -> xb); 
+        out += "\" y=\"";
+        out += std::to_string(quad -> yb - ( (quad -> s)/2 ) );
+        out += "\" width=\"";
+        out += std::to_string(quad-> l);
+        out += "\" height=\"";
+        out += std::to_string(quad->s);
+        out += "\" style=\"fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)\" />\n";
+    }
     if(with_measures){
         out += "\t<rect  x=\"";
         out += std::to_string(quad->xa);
@@ -167,29 +170,37 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad, bool with_measures){
     out += std::to_string(quad -> xb);
     out += ", ";
     out += std::to_string(quad -> yb);    
-    out += ")\">\n\t<rect  x=\"";
-    out += std::to_string( (quad -> xb) - (quad -> l)); 
-    out += "\" y=\"";
-    out += std::to_string(quad -> yb - ( (quad -> s)/2 ) );
-    out += "\" width=\"";
-    out += std::to_string(quad-> l);
-    out += "\" height=\"";
-    out += std::to_string(quad-> s);
-    out += "\" style=\"fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)\" />\n</g>\n\n<g transform=\"rotate\(";
+    out += ")\">\n";
+    if ( sl != 'u'){
+        out += "\t<rect  x=\"";
+        out += std::to_string( (quad -> xb) - (quad -> l)); 
+        out += "\" y=\"";
+        out += std::to_string(quad -> yb - ( (quad -> s)/2 ) );
+        out += "\" width=\"";
+        out += std::to_string(quad-> l);
+        out += "\" height=\"";
+        out += std::to_string(quad-> s);
+        out += "\" style=\"fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)\" />\n";
+    }
+    out += "</g>\n\n<g transform=\"rotate\(";
     out += std::to_string(-(quad -> theta));
     out += ", ";
     out += std::to_string(quad -> xa);
     out += ", ";
     out += std::to_string(quad -> ya);
-    out += ")\">\n\t<rect  x=\"";
-    out += std::to_string(quad -> xa);
-    out += "\" y=\"";
-    out += std::to_string( (quad -> ya) - ( (quad -> s) / 2) );
-    out += "\" width=\"";
-    out += std::to_string(quad -> l);
-    out += "\" height=\"";
-    out += std::to_string(quad -> s);
-    out += "\" style=\"fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)\" />\n\t<circle cx=\"";
+    out += ")\">\n";
+    if ( sl != 'l'){
+        out += "\t<rect  x=\"";
+        out += std::to_string(quad -> xa);
+        out += "\" y=\"";
+        out += std::to_string( (quad -> ya) - ( (quad -> s) / 2) );
+        out += "\" width=\"";
+        out += std::to_string(quad -> l);
+        out += "\" height=\"";
+        out += std::to_string(quad -> s);
+        out += "\" style=\"fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)\" />\n";
+    }
+    out += "\t<circle cx=\"";
     out += std::to_string( (quad -> xa) + (quad -> l) );
     out += "\" cy=\"";
     out += std::to_string(quad -> ya);
@@ -201,15 +212,19 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad, bool with_measures){
     out += std::to_string(quad -> xa);
     out += ", ";
     out += std::to_string(quad -> ya);
-    out += ")\">\n\t<rect  x=\"";
-    out += std::to_string( (quad -> xa) - (quad -> l) );
-    out += "\" y=\"";
-    out += std::to_string( (quad -> ya) - ( (quad -> s) / 2) );
-    out += "\" width=\"";
-    out += std::to_string(quad -> l);
-    out += "\" height=\"";
-    out += std::to_string(quad -> s);
-    out += "\" style=\"fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)\" />\n\t<circle cx=\"";
+    out += ")\">\n";
+    if ( sl != 'l'){
+        out += "\t<rect  x=\"";
+        out += std::to_string( (quad -> xa) - (quad -> l) );
+        out += "\" y=\"";
+        out += std::to_string( (quad -> ya) - ( (quad -> s) / 2) );
+        out += "\" width=\"";
+        out += std::to_string(quad -> l);
+        out += "\" height=\"";
+        out += std::to_string(quad -> s);
+        out += "\" style=\"fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)\" />\n";
+    }
+    out += "\t<circle cx=\"";
     out += std::to_string( (quad -> xa) - (quad -> l) );
     out += "\" cy=\"";
     out += std::to_string(quad -> ya);
