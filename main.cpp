@@ -12,23 +12,23 @@ int main(){
     StePer_Quadrilatero* quad = NULL;
     do{
         std::cout<<"\nScegli azione premendo il comando corrispondente []:\n\n";
-        std::cout<<"[1]\tInizializza quadrilatero (ATTENZIONE elimina quadrilatero corrente)\n";
-        std::cout<<"[2]\tCarica quadrilatero da file (ATTENZIONE elimina quadrilatero corrente)\n";
-        std::cout<<"[3]\tSalva quadrilatero su file\n";
-        std::cout<<"[a]\tSalva scrissor lift su file\n";
-        std::cout<<"[4]\tImposta nuova altezza h\n";
-        std::cout<<"[5]\tImposta nuova lunghezza aste l\n";
-        std::cout<<"[6]\tImposta nuovo spesore aste s\n";
-        std::cout<<"[7]\tImposta nuovo diametro perno d\n";
-        std::cout<<"[8]\tImposta nuova posizione xa\n";
-        std::cout<<"[9]\tImposta nuova posizione ya\n";
-        std::cout<<"[0]\tTermina programma\n";
+        std::cout<<"[i]\tInizializza quadrilatero (ATTENZIONE elimina quadrilatero corrente)\n";
+        std::cout<<"[c]\tCarica quadrilatero da file (ATTENZIONE elimina quadrilatero corrente)\n";
+        std::cout<<"[a]\tSalva quadrilatero su file\n";
+        std::cout<<"[b]\tSalva scrissor lift su file\n";
+        std::cout<<"[h]\tImposta nuova altezza h\n";
+        std::cout<<"[l]\tImposta nuova lunghezza aste l\n";
+        std::cout<<"[s]\tImposta nuovo spesore aste s\n";
+        std::cout<<"[d]\tImposta nuovo diametro perno d\n";
+        std::cout<<"[x]\tImposta nuova posizione xa\n";
+        std::cout<<"[y]\tImposta nuova posizione ya\n";
+        std::cout<<"[q]\tTermina programma\n";
 
         std::cin>> choice;
 
         switch (choice)
         {
-        case '1':{
+        case 'i':{
             double h, l, s, d, xa, ya;
             do{
                 std::cout<<"\nInserire h\n";
@@ -93,7 +93,7 @@ int main(){
             }while(quad==NULL);
             break;
         }
-        case '2':{
+        case 'c':{
             std::string filename;
             
                 
@@ -114,7 +114,7 @@ int main(){
             
             break;
         }
-        case '3':{
+        case 'a':{
             if(quad == NULL){
                 std::cout<<"\nERRORE: necessario inizializzare un quadrilatero per eseguire salvataggio\n";
                 break;
@@ -135,7 +135,7 @@ int main(){
             
             break;
         }
-        case '4':{
+        case 'h':{
             if(quad== NULL){
                 std::cout<<"\nERRORE: necessario prima inizializzare un quadrilatero\n";  
                 break;   
@@ -144,11 +144,13 @@ int main(){
             std::cout<<"\nInserire la nuova altezza h\n"; 
             std::cin>>x;
             if(StePer_set_h(quad, x)){
-                std::cout<<"\nERRORE: altezza non valida\nIl quadrilatero non è stato modificato\n";  
+                std::cout<<"\nERRORE: altezza non valida\nIl quadrilatero non è stato modificato\n"; 
+                std::cin.clear(); 
+                while (std::cin.get() != '\n');
             }            
             break;
         }
-        case '5':{
+        case 'l':{
             if(quad== NULL){
                 std::cout<<"\nERRORE: necessario prima inizializzare un quadrilatero\n";  
                 break;   
@@ -158,10 +160,12 @@ int main(){
             std::cin>>x;
             if(StePer_set_l(quad, x)){
                 std::cout<<"\nERRORE: valore non valido\nIl quadrilatero non è stato modificato\n";  
+                std::cin.clear(); 
+                while (std::cin.get() != '\n');
             }            
             break;
         }
-        case '6':{
+        case 's':{
             if(quad== NULL){
                 std::cout<<"\nERRORE: necessario prima inizializzare un quadrilatero\n";  
                 break;   
@@ -171,10 +175,12 @@ int main(){
             std::cin>>x;
             if(StePer_set_s(quad, x)){
                 std::cout<<"\nERRORE: valore non valido\nIl quadrilatero non è stato modificato\n";  
+                std::cin.clear(); 
+                while (std::cin.get() != '\n');
             }            
             break;
         }
-        case '7':{
+        case 'd':{
             if(quad== NULL){
                 std::cout<<"\nERRORE: necessario prima inizializzare un quadrilatero\n";  
                 break;   
@@ -184,10 +190,12 @@ int main(){
             std::cin>>x;
             if(StePer_set_d(quad, x)){
                 std::cout<<"\nERRORE: valore non valido\nIl quadrilatero non è stato modificato\n";  
+                std::cin.clear(); 
+                while (std::cin.get() != '\n');
             }            
             break;
         }
-        case '8':{
+        case 'x':{
             if(quad== NULL){
                 std::cout<<"\nERRORE: necessario prima inizializzare un quadrilatero\n";  
                 break;   
@@ -195,12 +203,20 @@ int main(){
             double x;
             std::cout<<"\nInserire la nuova xa\n"; 
             std::cin>>x;
+            while(!(std::cin.good())){
+		        std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
+		        std::cin.clear();
+      		    while (std::cin.get() != '\n');
+		        std::cin>>x;
+	        }
             if(StePer_set_xa(quad, x)){
                 std::cout<<"\nERRORE: valore non valido\nIl quadrilatero non è stato modificato\n";  
+                std::cin.clear(); 
+                while (std::cin.get() != '\n');
             }            
             break;
         }
-        case '9':{
+        case 'y':{
             if(quad== NULL){
                 std::cout<<"\nERRORE: necessario prima inizializzare un quadrilatero\n";  
                 break;   
@@ -208,12 +224,20 @@ int main(){
             double x;
             std::cout<<"\nInserire la nuova ya\n"; 
             std::cin>>x;
+            while(!(std::cin.good())){
+		        std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
+		        std::cin.clear();
+      		    while (std::cin.get() != '\n');
+		        std::cin>>x;
+	        }
             if(StePer_set_ya(quad, x)){
                 std::cout<<"\nERRORE: valore non valido\nIl quadrilatero non è stato modificato\n";  
+                std::cin.clear(); 
+                while (std::cin.get() != '\n');
             }            
             break;
         }
-        case 'a':{
+        case 'b':{
             if(quad == NULL){
                 std::cout<<"\nERRORE: necessario inizializzare un quadrilatero per eseguire salvataggio\n";
                 break;
@@ -240,7 +264,7 @@ int main(){
         }
         
 
-    }while(choice != '0');
+    }while(choice != 'q');
     
 
     free(quad);
