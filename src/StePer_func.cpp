@@ -460,7 +460,7 @@ int StePer_save(StePer_Quadrilatero* quad,std::string filename, bool with_measur
 
 /**
 *   Salva su file scrissor lift      
-*   la funzione salva il file svg del meccanismo chiedendo un puntatore a Quadrilatero, il numero di segmentio ed il nome del file su cui salvare
+*   la funzione salva il file svg del meccanismo chiedendo un puntatore a Quadrilatero, il numero di segmenti ed il nome del file su cui salvare
 *   se il puntatore è nullo non viene generato alcun file e ritorna 1 , altrimenti ritorna 0
 */
 int StePer_save_scrissorlift(StePer_Quadrilatero* quad,std::string filename, int n_segmenti){
@@ -479,4 +479,51 @@ int StePer_save_scrissorlift(StePer_Quadrilatero* quad,std::string filename, int
     }
     return 1;
 }
+
+/**
+*   Inizializzazione scrissor lift      
+*   la funzione inizializza il meccanismo scrissorlift passando i parametri:
+*   n_seg   = numero di segmenti pantografo
+*   l       = lunghezza aste pantografo
+*   s       = spessore aste pantografo
+*   d       = diametro perni pantografo
+*   x       = posizione x della prima coppia rotoidale in basso a sinistra
+*   y       = posizione y della prima coppia rotoidale in basso a sinistra
+*   w       = distanza tra le due coppie rotoidali alla base
+*   ritorna il puntatore a ScrissorLift se i parametri sono corretti altrimenti ritorna NULL
+*/
+StePer_ScrissorLift* StePer_init_scrissorlift(int n_seg, double l, double s, double d, double x, double y, double w){
+    
+    double xa,ya,h;
+
+    h   = 2* sqrt( (l*l) - ( (w/2)* (w/2) ) );
+    xa  = x + w/2;
+    ya  = y + h/2; 
+
+    if( !(StePer_check(h,l,s,d,xa,ya))){
+        StePer_Quadrilatero* quad = StePer_init(h, l, s, d, xa, ya);
+        StePer_ScrissorLift* lift = new StePer_ScrissorLift;
+        lift -> n_quad = n_seg;
+        lift -> quad = quad;
+        return lift;
+    }
+    return NULL;
+};
+
+/**
+*   Eliminazione scrissor lift      
+*   la funzione dealloca la strutture ScrissorLift chiedendo un puntatore a struttura in ingresso
+*   se il puntatore è nullo non fa niente 
+*/
+void StePer_destroy_scrissorlift(StePer_ScrissorLift* lift){
+
+    if( lift != NULL){
+        if(lift->quad!=NULL){
+            free(lift -> quad);
+        }
+        free (lift);
+
+    }
+    
+};
 
