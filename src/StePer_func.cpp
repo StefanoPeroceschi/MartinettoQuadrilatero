@@ -120,9 +120,9 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad, bool with_measures, char s
     out += std::to_string(quad -> xb);
     out += ", ";
     out += std::to_string(quad -> yb);
-    out += ")\">\n\t";
+    out += ")\">\n";
     if ( sl != 'u'){
-        out += "<rect  x=\"";
+        out += "\t<rect  x=\"";
         out += std::to_string(quad -> xb); 
         out += "\" y=\"";
         out += std::to_string(quad -> yb - ( (quad -> s)/2 ) );
@@ -230,19 +230,26 @@ std::string StePer_to_svg (StePer_Quadrilatero* quad, bool with_measures, char s
     out += std::to_string(quad -> ya);
     out += "\" r=\"";
     out += std::to_string( (quad -> d) / 2 );
-    out += "\" stroke=\"black\" stroke-width=\"1\" fill=\"lightgrey\" />\n</g>\n\n<circle cx=\"";
-    out += std::to_string(quad -> xa);
-    out += "\" cy=\"";
-    out += std::to_string(quad -> ya);
-    out += "\" r=\"";
-    out += std::to_string( (quad -> d) / 2 );
-    out += "\" stroke=\"black\" stroke-width=\"1\" fill=\"lightgrey\" />\n<circle cx=\"";
-    out += std::to_string(quad -> xb);
-    out += "\" cy=\"";
-    out += std::to_string(quad -> yb);
-    out += "\" r=\"";
-    out += std::to_string( (quad -> d) / 2 );
-    out += "\" stroke=\"black\" stroke-width=\"1\" fill=\"lightgrey\" />\n\n";
+    out += "\" stroke=\"black\" stroke-width=\"1\" fill=\"lightgrey\" />\n</g>\n\n";
+    if(sl != 'l'){
+        out += "<circle cx=\"";
+        out += std::to_string(quad -> xa);
+        out += "\" cy=\"";
+        out += std::to_string(quad -> ya);
+        out += "\" r=\"";
+        out += std::to_string( (quad -> d) / 2 );
+        out += "\" stroke=\"black\" stroke-width=\"1\" fill=\"lightgrey\" />\n";
+    }
+    if(sl != 'u'){
+        out += "<circle cx=\"";
+        out += std::to_string(quad -> xb);
+        out += "\" cy=\"";
+        out += std::to_string(quad -> yb);
+        out += "\" r=\"";
+        out += std::to_string( (quad -> d) / 2 );
+        out += "\" stroke=\"black\" stroke-width=\"1\" fill=\"lightgrey\" />\n\n";
+    }
+   
 
     if(with_measures){
         out += "<rect  x=\"";
@@ -460,17 +467,34 @@ int StePer_save(StePer_Quadrilatero* quad,std::string filename, bool with_measur
 
 /**
 *   Salva su file scrissor lift      
-*   la funzione salva il file svg del meccanismo chiedendo un puntatore a Quadrilatero, il numero di segmenti ed il nome del file su cui salvare
-*   se il puntatore è nullo non viene generato alcun file e ritorna 1 , altrimenti ritorna 0
+*   la funzione salva il file svg del meccanismo chiedendo un puntatore a ScrissorLift ed il nome del file su cui salvare
+*   se il puntatore è nullo o il puntatore a quadrilatero contenuto è nullo non viene generato alcun file e ritorna 1 , altrimenti ritorna 0
 */
-int StePer_save_scrissorlift(StePer_Quadrilatero* quad,std::string filename, int n_segmenti){
-    if( quad != NULL){
+int StePer_save_scrissorlift(StePer_ScrissorLift* lift,std::string filename){
+    if( lift != NULL && lift->quad != NULL){
+    
         std::ofstream file;
         file.open (filename+".svg");
         file << StePer_to_svg_init();
-        for(int i = n_segmenti-1; i>=0; i--){
-            StePer_Quadrilatero* local= StePer_init(quad->h,quad->l,quad->s,quad->d,quad->xa, SVG_Y + (quad->h) / 2 - (quad->h)*i);
-            file << StePer_to_svg( local, false);
+        
+
+        for(int i = lift->n_quad; i>=0; i--){
+            
+            if( StePer_init (lift->quad->h,lift->quad->l,lift->quad->s,lift->quad->d,lift->quad->xa, lift->quad->ya - (lift->quad->h)*i)==NULL ){
+                return 1;
+            }
+            StePer_Quadrilatero* local;
+            local= StePer_init(lift->quad->h,lift->quad->l,lift->quad->s,lift->quad->d,lift->quad->xa, lift->quad->ya- (lift->quad->h)*i);
+           
+            if(i ==lift->n_quad){
+                file << StePer_to_svg( local, false, 'u');
+            }
+            else if(i==0){
+                file << StePer_to_svg( local, false, 'l');
+            }
+            else{
+                file << StePer_to_svg( local, false);
+            };
             free(local);
         }
         file << StePer_to_svg_close();
@@ -500,7 +524,7 @@ StePer_ScrissorLift* StePer_init_scrissorlift(int n_seg, double l, double s, dou
     xa  = x + w/2;
     ya  = y + h/2; 
 
-    if( !(StePer_check(h,l,s,d,xa,ya))){
+    if( !(StePer_check(h,l,s,d,xa,ya))  ){
         StePer_Quadrilatero* quad = StePer_init(h, l, s, d, xa, ya);
         StePer_ScrissorLift* lift = new StePer_ScrissorLift;
         lift -> n_quad = n_seg;
