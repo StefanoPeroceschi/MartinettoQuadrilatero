@@ -1,5 +1,5 @@
 
-#include "guida.h"
+#include "../include/guida.h"
 #include <iostream>
 #include <string.h> 
 #include <fstream>
