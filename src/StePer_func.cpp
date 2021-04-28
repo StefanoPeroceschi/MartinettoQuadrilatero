@@ -480,9 +480,6 @@ int StePer_save_scrissorlift(StePer_ScrissorLift* lift,std::string filename){
 
         for(int i = lift->n_quad; i>=0; i--){
             
-            if( StePer_init (lift->quad->h,lift->quad->l,lift->quad->s,lift->quad->d,lift->quad->xa, lift->quad->ya - (lift->quad->h)*i)==NULL ){
-                return 1;
-            }
             StePer_Quadrilatero* local;
             local= StePer_init(lift->quad->h,lift->quad->l,lift->quad->s,lift->quad->d,lift->quad->xa, lift->quad->ya- (lift->quad->h)*i);
            
@@ -505,6 +502,32 @@ int StePer_save_scrissorlift(StePer_ScrissorLift* lift,std::string filename){
 }
 
 /**
+*   Verifica ScrissorLift      
+*   verifica che tutti i quadrilateri all'interno di scrissorlift siano validi  
+*   se le misure del quadrilatrero alla base non sono valide ritorna 1, se il meccanismo esce dal file
+*   ritorna -1 altrimenti ritorna 0
+*/
+int StePer_check_scrissorlift(int n_seg, double l, double s, double d, double x, double y, double w){
+    
+    double xa,ya,h;
+
+    h   = 2* sqrt( (l*l) - ( (w/2)* (w/2) ) );
+    xa  = x + w/2;
+    ya  = y + h/2; 
+    
+    if( StePer_check(h,l,s,d,xa,ya) ){
+        return 1;
+    }
+    for(int i = n_seg; i>=0; i--){
+            if( StePer_check (h,l,s,d,xa, ya-i*h ) ){
+                std::cout<<"\n"<<i<<"\n";
+                return -1;
+            }
+    }
+    return 0;
+}
+
+/**
 *   Inizializzazione scrissor lift      
 *   la funzione inizializza il meccanismo scrissorlift passando i parametri:
 *   n_seg   = numero di segmenti pantografo
@@ -523,12 +546,14 @@ StePer_ScrissorLift* StePer_init_scrissorlift(int n_seg, double l, double s, dou
     h   = 2* sqrt( (l*l) - ( (w/2)* (w/2) ) );
     xa  = x + w/2;
     ya  = y + h/2; 
+    std::cout<<"\n"<<StePer_check_scrissorlift(h,l,s,d,x,y,w)<<"\n";
+    if( !(StePer_check_scrissorlift(n_seg,l,s,d,x,y,w))  ){
 
-    if( !(StePer_check(h,l,s,d,xa,ya))  ){
         StePer_Quadrilatero* quad = StePer_init(h, l, s, d, xa, ya);
         StePer_ScrissorLift* lift = new StePer_ScrissorLift;
         lift -> n_quad = n_seg;
         lift -> quad = quad;
+        
         return lift;
     }
     return NULL;

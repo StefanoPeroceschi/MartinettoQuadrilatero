@@ -163,4 +163,13 @@ StePer_ScrissorLift* StePer_init_scrissorlift(int n_seg, double l, double s, dou
 */
 void StePer_destroy_scrissorlift(StePer_ScrissorLift* lift);
 
+
+/**
+*   Verifica ScrissorLift      
+*   verifica che tutti i quadrilateri all'interno di scrissorlift siano validi  
+*   se le misure del quadrilatrero alla base non sono valide ritorna 1, se il meccanismo esce dal file
+*   ritorna -1 altrimenti ritorna 0
+*/
+int StePer_check_scrissorlift(int n_seg, double l, double s, double d, double x, double y, double w);
+
 #endif 
