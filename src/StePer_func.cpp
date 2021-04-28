@@ -515,12 +515,11 @@ int StePer_check_scrissorlift(int n_seg, double l, double s, double d, double x,
     xa  = x + w/2;
     ya  = y + h/2; 
     
-    if( StePer_check(h,l,s,d,xa,ya) ){
+    if( StePer_check(h,l,s,d,SVG_X/2,SVG_Y/2) ){
         return 1;
     }
     for(int i = n_seg; i>=0; i--){
             if( StePer_check (h,l,s,d,xa, ya-i*h ) ){
-                std::cout<<"\n"<<i<<"\n";
                 return -1;
             }
     }
@@ -546,7 +545,7 @@ StePer_ScrissorLift* StePer_init_scrissorlift(int n_seg, double l, double s, dou
     h   = 2* sqrt( (l*l) - ( (w/2)* (w/2) ) );
     xa  = x + w/2;
     ya  = y + h/2; 
-    std::cout<<"\n"<<StePer_check_scrissorlift(h,l,s,d,x,y,w)<<"\n";
+    
     if( !(StePer_check_scrissorlift(n_seg,l,s,d,x,y,w))  ){
 
         StePer_Quadrilatero* quad = StePer_init(h, l, s, d, xa, ya);
