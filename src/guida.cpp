@@ -158,7 +158,7 @@ int guida_set_guida( GuidaPrismatica * guida , float dimx, float dimy, unsigned 
     return exit_value;
 }
 
-/* Funzione ausiliaria per la modifica della lunghezza
+// Funzione ausiliaria per la modifica della lunghezza
 void guida_modifica_lunghezza (GuidaPrismatica * guida ){
     float temp;
 
@@ -280,7 +280,7 @@ void guida_modifica( GuidaPrismatica * guida){
     } while( scelta  != 0 );
 
     return;
-}*/
+}
 
 int guida_controlla_integrita (GuidaPrismatica * guida ){
 
@@ -337,14 +337,14 @@ int guida_controlla_integrita (GuidaPrismatica * guida ){
     
     if(guida->corsa > max_corsa) {
 
-        guida->corsa = max_corsa;
+        //guida->corsa = max_corsa;
         guida_modificata = true;
 
     }
 
     if(guida->corsa < min_corsa) {
 
-        guida->corsa = min_corsa;
+        //guida->corsa = min_corsa;
         guida_modificata = true;
 
     }
@@ -352,8 +352,8 @@ int guida_controlla_integrita (GuidaPrismatica * guida ){
     // Controllo che le dimensioni delle cerniere e della guida non superi la lunghezza complessiva della struttura; in caso riaggiusto
     if( guida->incastri->dim_x + guida->guida->dim_x > guida->lunghezza){
 
-        guida->incastri->dim_x = guida->lunghezza / 2;
-        guida->guida->dim_x = guida->lunghezza / 2;
+        //guida->incastri->dim_x = guida->lunghezza / 2;
+        //guida->guida->dim_x = guida->lunghezza / 2;
         guida_modificata = true;
 
     }
