@@ -3,6 +3,7 @@
 #include <cstring>
 #include <iomanip>
 #include <iostream>
+#include <cmath>
 
 #include"include/StePer_func.h"
 
@@ -257,7 +258,15 @@ int main(){
       		    while (std::cin.get() != '\n');
 		        std::cin>>n_segmenti;
 	        }
-            StePer_save_scrissorlift(quad, filename, n_segmenti);
+            double w = sqrt( pow(2 * quad->l,2 ) - pow(quad->h,2)  );
+            
+            StePer_ScrissorLift* lift = StePer_init_scrissorlift(n_segmenti, quad->l, quad->s, quad->d, (quad->xa)-w/2,(quad->ya)-(quad->h)/2,w);
+            if (lift==NULL){
+                std::cout <<"\nErrore: il meccanismo esce dal riquadro, scegliere un numero minore di segmenti\n";
+                break;
+            }
+            StePer_save_scrissorlift(lift, filename);
+            StePer_destroy_scrissorlift(lift);
             
             break;
         }
