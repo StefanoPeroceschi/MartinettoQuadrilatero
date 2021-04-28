@@ -20,7 +20,7 @@ int StePer_check (double h, double l, double s, double d, double xa, double ya){
     }
 
     //Check valori di h
-    if(h < 1.3*s || h > (2*l)-s ){
+    if(h < 1.2*s || h > (2*l)-s ){
         return 1;
     }
 
