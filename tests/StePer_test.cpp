@@ -161,8 +161,28 @@ TEST_CASE("StePer_set_ya deve modificare il parametro se in ingresso ha valori v
     free(quad);
 }
 
+TEST_CASE("StePer_init_scrissorlift deve inizializzare una struttura Scrissorlift con parametri corretti", "[func]") {
+    StePer_ScrissorLift* lift;
+    lift=StePer_init_scrissorlift(3,200.,22.,21.,300.,490.,370.);
+    REQUIRE(lift->quad->l==Approx(200.) );
+    REQUIRE(lift->quad->s==Approx(22.) );
+    REQUIRE(lift->quad->d==Approx(21.) );    
+    REQUIRE(lift->n_quad== 3 );
+    free(lift);
+}
+TEST_CASE("StePer_init_scrissorlift deve ritornare un puntatore nullo se si chiama con parametri non corretti", "[func]") {
+    StePer_ScrissorLift* lift;
+    lift=StePer_init_scrissorlift(3,200.,22.,23.,300.,490.,370.);
+    REQUIRE(lift==NULL );
+    lift=StePer_init_scrissorlift(4,200.,22.,21.,300.,490.,370.);
+    REQUIRE(lift==NULL );
+    lift=StePer_init_scrissorlift(1,200.,22.,21.,300.,490.,400.);
+    REQUIRE(lift==NULL );
+    lift=StePer_init_scrissorlift(1,200.,22.,21.,300.,820.,350.);
+    REQUIRE(lift==NULL );
 
-
+    free(lift);
+}
 
 
 
