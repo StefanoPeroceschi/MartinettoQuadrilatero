@@ -78,6 +78,14 @@ int StePer_check_sollevatore(
     
     );
 
+    /**
+ * Generatore stringa Sollevatore
+ * La funzione genera una stringa contenente il codice svg relativo al sollevatore. Ritorna "ERRORE: puntatore nullo" se 
+*   se il puntatore in ingresso è nullo, ritorna la stringa del componente altrimenti
+*   @param sol puntatore a struct Sollevatore
+*/
+std::string StePer_to_svg_sollevatore(StePer_Sollevatore* sol);
+
 /**
  * Stampa Sollevatore
  * La funzione genera un file svg con la rappresentazione del sollevatore. Se il puntatore è nullo ritorna 1 altrimenti ritorna 0
