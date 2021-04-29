@@ -466,6 +466,40 @@ int StePer_save(StePer_Quadrilatero* quad,std::string filename, bool with_measur
 }
 
 /**
+*   Generatore stringa svg di scrissor lift      
+*   la funzione genera la stringa relativa al componente Scrissorlift in formato svg, ritorna "ERRORE: puntatore nullo" se 
+*   se il puntatore in ingresso è nullo o se lo è il suo elemento quad, ritorna la stringa del componente altrimenti
+*   @param lift puntatore a struct Scrissorlift
+*/
+std::string StePer_to_svg_scrissorlift(StePer_ScrissorLift* lift){
+    if( lift != NULL && lift->quad != NULL){
+    
+        std::string out = "";
+        
+        for(int i = lift->n_quad; i>=0; i--){
+            
+            StePer_Quadrilatero* local;
+            local= StePer_init(lift->quad->h,lift->quad->l,lift->quad->s,lift->quad->d,lift->quad->xa, lift->quad->ya- (lift->quad->h)*i);
+           
+            if(i ==lift->n_quad){
+                out += StePer_to_svg( local, false, 'u');
+            }
+            else if(i==0){
+               out += StePer_to_svg( local, false, 'l');
+            }
+            else{
+                out += StePer_to_svg( local, false);
+            };
+            
+        }
+       
+        
+        return out;
+    }
+    return "\n\nERRORE: puntatore nullo\n\n";
+}
+
+/**
 *   Salva su file scrissor lift      
 *   la funzione salva il file svg del meccanismo chiedendo un puntatore a ScrissorLift ed il nome del file su cui salvare
 *   se il puntatore è nullo o il puntatore a quadrilatero contenuto è nullo non viene generato alcun file e ritorna 1 , altrimenti ritorna 0
@@ -476,24 +510,7 @@ int StePer_save_scrissorlift(StePer_ScrissorLift* lift,std::string filename){
         std::ofstream file;
         file.open (filename+".svg");
         file << StePer_to_svg_init();
-        
-
-        for(int i = lift->n_quad; i>=0; i--){
-            
-            StePer_Quadrilatero* local;
-            local= StePer_init(lift->quad->h,lift->quad->l,lift->quad->s,lift->quad->d,lift->quad->xa, lift->quad->ya- (lift->quad->h)*i);
-           
-            if(i ==lift->n_quad){
-                file << StePer_to_svg( local, false, 'u');
-            }
-            else if(i==0){
-                file << StePer_to_svg( local, false, 'l');
-            }
-            else{
-                file << StePer_to_svg( local, false);
-            };
-            free(local);
-        }
+        file << StePer_to_svg_scrissorlift( lift);
         file << StePer_to_svg_close();
         file.close();
         return 0;

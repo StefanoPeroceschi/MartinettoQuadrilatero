@@ -136,6 +136,14 @@ int StePer_save(StePer_Quadrilatero* quad,std::string filename, bool);
  StePer_Quadrilatero* StePer_load_from_file(std::string filename); 
 
  /**
+*   Generatore stringa svg di scrissor lift      
+*   la funzione genera la stringa relativa al componente Scrissorlift in formato svg, ritorna "ERRORE: puntatore nullo" se 
+*   se il puntatore in ingresso è nullo o se lo è il suo elemento quad, ritorna la stringa del componente altrimenti
+*   @param lift puntatore a struct Scrissorlift
+*/
+std::string StePer_to_svg_scrissorlift(StePer_ScrissorLift* lift);
+
+ /**
 *   Salva su file scrissor lift      
 *   la funzione salva il file svg del meccanismo chiedendo un puntatore a ScrissorLift ed il nome del file su cui salvare
 *   se il puntatore è nullo non viene generato alcun file e ritorna 1 , altrimenti ritorna 0
