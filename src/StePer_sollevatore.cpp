@@ -25,7 +25,7 @@ StePer_Sollevatore* StePer_init_sollevatore (double l, double s, double d,  doub
     h   = 2* sqrt( (l*l) - ( (w/2)* (w/2) ) );
     xa  = x + w/2;
     ya  = y + h/2; 
-    l_guida = sqrt( l*l - (1.3 * s)*(1.3 * s)) + dim_blocchi ;
+    l_guida = 2* l + dim_blocchi ;
   
     GuidaPrismatica* guida = guida_init(x,y,l_guida, w, dim_blocchi, dim_blocchi);
     if (guida == NULL){
@@ -76,11 +76,12 @@ int StePer_check_sollevatore(double l, double s, double d,  double n_aste, doubl
  *  @param sol          puntatore a Sollevatore da stampare
  */
 int StePer_save_sollevatore(StePer_Sollevatore* sol, std::string filename){
-   if( sol != NULL){
+   if( sol != NULL && sol ->guida != NULL && sol-> lift != NULL){
         std::ofstream file;
         file.open (filename+".svg");
         file << StePer_to_svg_init();
-        file << StePer_save_scrissorlift( sol -> lift, measures);
+        file << guida_to_SVGstring(sol -> guida);
+        file << StePer_to_svg_scrissorlift( sol -> lift);
         file << StePer_to_svg_close();
         file.close();
         return 0;

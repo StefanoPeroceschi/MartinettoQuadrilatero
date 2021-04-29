@@ -10,6 +10,8 @@
 #include <cstdio>
 #include <stdlib.h>
 #include <iomanip>
+#include "guida.h"
+
 
 
 #define PI 3.14159265
@@ -74,6 +76,18 @@ int StePer_check_sollevatore(
     double y,
     double w
     
+    );
+
+/**
+ * Stampa Sollevatore
+ * La funzione genera un file svg con la rappresentazione del sollevatore. Se il puntatore è nullo ritorna 1 altrimenti ritorna 0
+ * ATTENZIONE se è già presente nella cartella un file con lo stesso nome lo sovrascrive! 
+ *  @param filename     nome del file su cui salvare (senza estensione)
+ *  @param sol          puntatore a Sollevatore da stampare
+ */
+int StePer_save_sollevatore(
+    StePer_Sollevatore* sol, 
+    std::string filename
     );
 
 
