@@ -106,6 +106,124 @@ int StePer_save_sollevatore(StePer_Sollevatore* sol, std::string filename){
     return 1;
     
 }
-  
+
+/**
+*   Modifica il valore di l_sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_l parametro nuovo
+*/
+int StePer_set_l_sollevatore(StePer_Sollevatore* sol,double new_l){
+    if ( ! StePer_check_sollevatore(new_l, sol->lift->quad->s,sol->lift->quad->d, sol->lift->n_quad, sol->guida->incastri->dim_x, sol->guida->pos_x, sol->guida->pos_y, sol->guida->corsa )){
+        double h,
+        h= 2*sqrt(new_l*new_l - pow((sol->guida->corsa)/2, 2));
+
+        if(StePer_set_ya(sol->lift->quad, sol->guida->pos_y +h/2))return 1;
+        if(StePer_set_h(sol->lift->quad, h))return 1;
+        if(StePer_set_l(sol->lift->quad, new_l))return 1;
+        if(guida_set_lunghezza(sol->guida, 2*new_l))return 1;;
 
 
+        return 0;
+    }
+    return 1;
+}
+
+
+/**
+*   Modifica il valore di s_sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_s parametro nuovo
+*/
+int StePer_set_s_sollevatore(StePer_Sollevatore* sol,double new_s){
+    if ( ! StePer_check_sollevatore(sol->lift->quad->l, new_s,sol->lift->quad->d, sol->lift->n_quad, sol->guida->incastri->dim_x, sol->guida->pos_x, sol->guida->pos_y, sol->guida->corsa )){
+        StePer_set_s(sol->lift->quad,new_s);
+        return 0;
+    }
+    return 1;
+}
+
+
+/**
+*   Modifica il valore di d_sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_d parametro nuovo
+*/
+int StePer_set_d_sollevatore(StePer_Sollevatore* sol,double new_d){
+    if ( ! StePer_check_sollevatore(sol->lift->quad->l, sol->lift->quad->s,new_d, sol->lift->n_quad, sol->guida->incastri->dim_x, sol->guida->pos_x, sol->guida->pos_y, sol->guida->corsa )){
+        StePer_set_d(sol->lift->quad,new_d);
+        return 0;
+    }
+    return 1;
+}
+
+/**
+*   Modifica il valore di n_aste_sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_n parametro nuovo
+*/
+int StePer_set_n_sollevatore(StePer_Sollevatore* sol,double new_n){
+    if ( ! StePer_check_sollevatore(sol->lift->quad->l, sol->lift->quad->s,sol->lift->quad->d, new_n, sol->guida->incastri->dim_x, sol->guida->pos_x, sol->guida->pos_y, sol->guida->corsa )){
+        sol->lift->n_quad = new_n;
+        return 0;
+    }
+    return 1;
+}
+
+/**
+*   Modifica il valore di x_sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_x parametro nuovo
+*/
+int StePer_set_x_sollevatore(StePer_Sollevatore* sol,double new_x){
+    if ( ! StePer_check_sollevatore(sol->lift->quad->l, sol->lift->quad->s,sol->lift->quad->d, sol->lift->n_quad, sol->guida->incastri->dim_x, new_x, sol->guida->pos_y, sol->guida->corsa )){
+        sol->lift->quad->xa = new_x;
+        sol->guida->pos_x = new_x;
+        return 0;
+    }
+    return 1;
+}
+
+/**
+*   Modifica il valore di y_sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_y parametro nuovo
+*/
+int StePer_set_y_sollevatore(StePer_Sollevatore* sol,double new_y){
+    if ( ! StePer_check_sollevatore(sol->lift->quad->l, sol->lift->quad->s,sol->lift->quad->d, sol->lift->n_quad, sol->guida->incastri->dim_x, sol->guida->pos_x, new_y, sol->guida->corsa )){
+        sol->lift->quad->ya = new_y;
+        sol->guida->pos_y = new_y;
+        return 0;
+    }
+    return 1;
+}
+
+/**
+*   Modifica il valore di w_sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_w parametro nuovo
+*/
+int StePer_set_w_sollevatore(StePer_Sollevatore* sol,double new_w){
+    if ( ! StePer_check_sollevatore(sol->lift->quad->l, sol->lift->quad->s,sol->lift->quad->d, sol->lift->n_quad, sol->guida->incastri->dim_x, sol->guida->pos_x, sol->guida->pos_y, new_w )){
+        double h,
+        h= 2*sqrt(pow(sol->lift->quad->l, 2) - pow(new_w/2, 2));
+        if (StePer_set_ya(sol->lift->quad, sol->guida->pos_y + h/2))return 1;
+        if (StePer_set_h(sol->lift->quad, h))return 1;
+        if (guida_set_corsa(sol->guida, new_w))return 1; 
+        return 0;
+    }
+    return 1;
+}

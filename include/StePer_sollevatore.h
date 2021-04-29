@@ -98,5 +98,69 @@ int StePer_save_sollevatore(
     std::string filename
     );
 
+    /**
+*   Modifica il valore di l_sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_l parametro nuovo
+*/
+int StePer_set_l_sollevatore(StePer_Sollevatore* sol,double new_l);
+
+/**
+*   Modifica il valore di s_sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_s parametro nuovo
+*/
+int StePer_set_s_sollevatore(StePer_Sollevatore* sol,double new_s);
+
+/**
+*   Modifica il valore di d_sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_d parametro nuovo
+*/
+int StePer_set_d_sollevatore(StePer_Sollevatore* sol,double new_d);
+
+
+/**
+*   Modifica il valore di n_aste_sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_n parametro nuovo
+*/
+int StePer_set_n_sollevatore(StePer_Sollevatore* sol,double new_n);
+
+/**
+*   Modifica il valore di x_sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_x parametro nuovo
+*/
+int StePer_set_x_sollevatore(StePer_Sollevatore* sol,double new_x);
+
+/**
+*   Modifica il valore di y_sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_y parametro nuovo
+*/
+int StePer_set_y_sollevatore(StePer_Sollevatore* sol,double new_y);
+
+/**
+*   Modifica il valore di w_sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_w parametro nuovo
+*/
+int StePer_set_w_sollevatore(StePer_Sollevatore* sol,double new_w);
+
 
 #endif 
