@@ -63,6 +63,9 @@ int StePer_check_sollevatore(double l, double s, double d,  double n_aste, doubl
     if (dim_blocchi > l/2){
         return 1;
     } 
+    if (StePer_check_scrissorlift(n_aste,l,s,d,x,y,w)){
+        return 1;
+    }
     return 0;
     
 }
@@ -116,13 +119,15 @@ int StePer_save_sollevatore(StePer_Sollevatore* sol, std::string filename){
 */
 int StePer_set_l_sollevatore(StePer_Sollevatore* sol,double new_l){
     if ( ! StePer_check_sollevatore(new_l, sol->lift->quad->s,sol->lift->quad->d, sol->lift->n_quad, sol->guida->incastri->dim_x, sol->guida->pos_x, sol->guida->pos_y, sol->guida->corsa )){
-        double h,
+        double h;
         h= 2*sqrt(new_l*new_l - pow((sol->guida->corsa)/2, 2));
-
-        if(StePer_set_ya(sol->lift->quad, sol->guida->pos_y +h/2))return 1;
-        if(StePer_set_h(sol->lift->quad, h))return 1;
-        if(StePer_set_l(sol->lift->quad, new_l))return 1;
-        if(guida_set_lunghezza(sol->guida, 2*new_l))return 1;;
+        if( StePer_set_h  (sol->lift->quad, h))                         return 1;
+        if( StePer_set_ya (sol->lift->quad, sol->guida->pos_y +h/2))    return 1;
+        if( StePer_set_l  (sol->lift->quad, new_l))                     return 1;
+        if( StePer_set_xa (sol->lift->quad, sol->guida->pos_x - (sol->guida->lunghezza)/2 + (sol->guida->corsa)/2 ))return 1;
+        if( guida_set_lunghezza(sol->guida, 2*new_l + sol->guida->guida->dim_x ))                                   return 1;
+        
+        sol->guida->pos_x= sol->lift->quad->xa - (sol->guida->corsa)/2 +  (sol->guida->lunghezza)/2;
 
 
         return 0;
@@ -186,8 +191,8 @@ int StePer_set_n_sollevatore(StePer_Sollevatore* sol,double new_n){
 */
 int StePer_set_x_sollevatore(StePer_Sollevatore* sol,double new_x){
     if ( ! StePer_check_sollevatore(sol->lift->quad->l, sol->lift->quad->s,sol->lift->quad->d, sol->lift->n_quad, sol->guida->incastri->dim_x, new_x, sol->guida->pos_y, sol->guida->corsa )){
-        sol->lift->quad->xa = new_x;
-        sol->guida->pos_x = new_x;
+        StePer_set_xa(sol->lift->quad, new_x + (sol->guida->corsa)/2 - (sol->guida->corsa)/2  );
+        sol->guida->pos_x = new_x + (sol->guida->lunghezza)/2 - (sol->guida->corsa)/2 ;
         return 0;
     }
     return 1;
@@ -202,7 +207,9 @@ int StePer_set_x_sollevatore(StePer_Sollevatore* sol,double new_x){
 */
 int StePer_set_y_sollevatore(StePer_Sollevatore* sol,double new_y){
     if ( ! StePer_check_sollevatore(sol->lift->quad->l, sol->lift->quad->s,sol->lift->quad->d, sol->lift->n_quad, sol->guida->incastri->dim_x, sol->guida->pos_x, new_y, sol->guida->corsa )){
-        sol->lift->quad->ya = new_y;
+        double h;
+        h= sqrt(sol->lift->quad->l *sol->lift->quad->l - pow((sol->guida->corsa)/2, 2));
+        sol->lift->quad->ya = new_y +h ;
         sol->guida->pos_y = new_y;
         return 0;
     }
@@ -218,10 +225,11 @@ int StePer_set_y_sollevatore(StePer_Sollevatore* sol,double new_y){
 */
 int StePer_set_w_sollevatore(StePer_Sollevatore* sol,double new_w){
     if ( ! StePer_check_sollevatore(sol->lift->quad->l, sol->lift->quad->s,sol->lift->quad->d, sol->lift->n_quad, sol->guida->incastri->dim_x, sol->guida->pos_x, sol->guida->pos_y, new_w )){
-        double h,
+        double h;
         h= 2*sqrt(pow(sol->lift->quad->l, 2) - pow(new_w/2, 2));
-        if (StePer_set_ya(sol->lift->quad, sol->guida->pos_y + h/2))return 1;
         if (StePer_set_h(sol->lift->quad, h))return 1;
+        if (StePer_set_ya(sol->lift->quad, sol->guida->pos_y + h/2))return 1;
+        if (StePer_set_xa(sol->lift->quad, sol->guida->pos_x -(sol->guida->lunghezza)/2 + new_w/2))return 1;
         if (guida_set_corsa(sol->guida, new_w))return 1; 
         return 0;
     }
