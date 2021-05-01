@@ -162,5 +162,14 @@ int StePer_set_y_sollevatore(StePer_Sollevatore* sol,double new_y);
 */
 int StePer_set_w_sollevatore(StePer_Sollevatore* sol,double new_w);
 
+/**
+*   Modifica il valore di dim_blocchi sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_x parametro nuovo
+*/
+int StePer_set_dimblocchi_sollevatore(StePer_Sollevatore* sol,double new_x);
+
 
 #endif 

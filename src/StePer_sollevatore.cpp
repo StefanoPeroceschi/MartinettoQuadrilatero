@@ -235,3 +235,19 @@ int StePer_set_w_sollevatore(StePer_Sollevatore* sol,double new_w){
     }
     return 1;
 }
+/**
+*   Modifica il valore di dim_blocchi sollevatore     
+*   se il nuovo valore è incompatibile con la macchina Sollevatore ritorna 1 e non modifica il componente 
+*   altrimenti ritorna 0 e modifica il parametro
+*   @param sol puntatore a Sollevatore da modificare
+*   @param new_x parametro nuovo
+*/
+int StePer_set_dimblocchi_sollevatore(StePer_Sollevatore* sol,double new_x){
+    if ( ! StePer_check_sollevatore(sol->lift->quad->l, sol->lift->quad->s,sol->lift->quad->d, sol->lift->n_quad, new_x, sol->guida->pos_x, sol->guida->pos_y, sol->guida->corsa )){
+        
+        if (guida_set_cerniera(sol->guida, new_x, new_x))return 1;
+        if (guida_set_guida(sol->guida, new_x, new_x))return 1; 
+        return 0;
+    }
+    return 1;
+}

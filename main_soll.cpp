@@ -21,6 +21,7 @@ int main(){
         std::cout<<"[s]\tImposta nuovo spesore aste s\n";
         std::cout<<"[d]\tImposta nuovo diametro perno d\n";
         std::cout<<"[n]\tImposta nuovo n_aste\n";
+        std::cout<<"[f]\tImposta nuova dimensione blocchi\n";
         std::cout<<"[x]\tImposta nuova posizione x\n";
         std::cout<<"[y]\tImposta nuova posizione y\n";
         std::cout<<"[w]\tImposta nuova apertura alla base w\n";
@@ -203,6 +204,22 @@ int main(){
             std::cout<<"\nInserire il nuovo numero aste n\n"; 
             std::cin>>x;
             if(StePer_set_n_sollevatore  (sol, x)){
+                std::cout<<"\nERRORE: numero non valido\nIl sollevatore non è stato modificato\n"; 
+                std::cin.clear(); 
+                while (std::cin.get() != '\n');
+            }            
+            break;
+        }
+        case 'f':{
+            if(sol== NULL){
+                std::cout<<"\nERRORE: necessario prima inizializzare un sollevatore\n";  
+                break;   
+            }
+            double x;
+            std::cout<<"\nInserire la nuova dimensione blocchi\n"; 
+            std::cin>>x;
+            
+            if(StePer_set_dimblocchi_sollevatore (sol, x)){
                 std::cout<<"\nERRORE: numero non valido\nIl sollevatore non è stato modificato\n"; 
                 std::cin.clear(); 
                 while (std::cin.get() != '\n');
