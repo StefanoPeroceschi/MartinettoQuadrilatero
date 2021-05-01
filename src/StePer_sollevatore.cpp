@@ -251,3 +251,15 @@ int StePer_set_dimblocchi_sollevatore(StePer_Sollevatore* sol,double new_x){
     }
     return 1;
 }
+
+/**
+ * Deallocazione macchina, vettore di puntatori Sollevatore, ia funzione elimina dalla memoria un vettore di Sollevatore 
+ * @param macc  vettore di puntatori Sollevatore*
+ * @param n_istanze numero di strutture Sollevatore contenute macc
+ * 
+ */
+void StePer_destroy_macchina(StePer_Sollevatore** macc, unsigned n_istanze){
+    for(int i = 0; i < n_istanze; i++){
+        StePer_destroy_sollevatore (macc[i]);
+    }
+}
