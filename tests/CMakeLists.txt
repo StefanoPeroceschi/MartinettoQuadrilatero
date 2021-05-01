@@ -1,7 +1,8 @@
 # Sources that contain the tests
 add_executable(catch2Test catch2Main.cpp) # Just this one contains BOOST_TEST_MAIN
 target_sources(catch2Test PRIVATE
-        StePer_test.cpp)
+        StePer_test.cpp
+        StePer_test_soll.cpp)
 
 # Libraries used in the tests
 target_link_libraries(catch2Test)
@@ -12,6 +13,8 @@ target_link_libraries(catch2Test)
 
 # Including sources
 target_sources(catch2Test PRIVATE
-        ../src/StePer_func.cpp)
+        ../src/StePer_func.cpp
+        ../src/StePer_sollevatore.cpp
+        ../src/guida.cpp)
 
 #target_compile_options(catch2Test PRIVATE -Wa,-mbig-obj) # Solves assembler error of file too big
