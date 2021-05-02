@@ -34,7 +34,7 @@ int main(){
         case 'i':{
             double l, s, d, dim, n, x, y, w;
             do{
-                std::cout<<"\nInserire l\n";
+                std::cout<<"\nInserire l (semilunghezza aste, [suggerito 100])\n";
                 std::cin>> l;
                 while(!(std::cin.good())){
 		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
@@ -121,10 +121,10 @@ int main(){
             std::cin>>filename;
 
             if(sol != NULL){
-               // free (quad);
+                StePer_destroy_sollevatore (sol);
             }
 
-            //sol = StePer_load_from_file(filename);
+            sol = StePer_load_from_file_sollevatore(filename);
 
             if(sol == NULL){
                 std::cout<<"\nERRORE: file danneggiato o non esistente\n";

@@ -179,5 +179,12 @@ int StePer_set_dimblocchi_sollevatore(StePer_Sollevatore* sol,double new_x);
  */
 void StePer_destroy_macchina(StePer_Sollevatore** macc, unsigned n_istanze);
 
+/**
+*   Carica da file    
+*   la funzione genera un Sollevatore leggendo ottenedo le grandezze da un file svg passato in ingresso
+*   @param filename nome del file da caricare
+*/
+ StePer_Sollevatore* StePer_load_from_file_sollevatore(std::string	filename);
+
 
 #endif 

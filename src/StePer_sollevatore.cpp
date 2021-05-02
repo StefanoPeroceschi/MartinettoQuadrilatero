@@ -260,6 +260,80 @@ int StePer_set_dimblocchi_sollevatore(StePer_Sollevatore* sol,double new_x){
  */
 void StePer_destroy_macchina(StePer_Sollevatore** macc, unsigned n_istanze){
     for(int i = 0; i < n_istanze; i++){
-        StePer_destroy_sollevatore (macc[i]);
+        if(macc[i]!=NULL){
+            StePer_destroy_sollevatore (macc[i]);
+
+        }
     }
 }
+
+/**
+*   Carica da file    
+*   la funzione genera un Sollevatore leggendo ottenedo le grandezze da un file svg passato in ingresso
+*   @param filename nome del file da caricare
+*/
+ StePer_Sollevatore* StePer_load_from_file_sollevatore(std::string	filename){
+    double l, s, d, dim, x, y, w, ya, yb, h;
+    int n;
+
+    std::string line = "";
+    int line_index = 0;
+    
+
+    std::ifstream f ( filename + ".svg");
+
+	if( !f.good() ){
+		return NULL;
+	}
+
+	if( f.is_open() ){
+		while(getline(f, line)){
+            if (line_index == 2){            
+                line = line.substr( line.find("matrix") + 44 );
+                x = stod( line);
+            }
+            else if (line_index == 3){            
+                line = line.substr( line.find("width") + 7 );
+                dim = stod( line ); 
+                line = line.substr( line.find("matrix") + 54 );
+                y = stod( line);
+            }
+            else if (line_index == 8){            
+                line = line.substr( line.find(",") + 2 );
+                line = line.substr( line.find(",") + 2 );
+                yb = stod( line);
+            }
+            else if (line_index == 14){            
+                line = line.substr( line.find(",") + 2 );
+                line = line.substr( line.find(",") + 2 );
+                ya = stod( line);
+            }
+            else if (line_index == 15){
+            
+                line = line.substr( line.find("width=\"") + 7 );
+                l = stod( line);
+
+                line = line.substr( line.find("height") + 8 );
+                s = stod( line);
+               
+            }
+            else if (line_index == 16 ){
+            
+                line = line.substr( line.find("r=\"") + 3 );
+                d = stod( line) * 2;
+               
+            }
+            
+            line_index ++;
+        }
+       
+        h = ya - yb; 
+        w= 2* sqrt( l*l - (h/2)*(h/2) );
+        n= ( (line_index - 47) / 23) +1;
+
+        return StePer_init_sollevatore ( l, s, d, n, dim, x, y, w);
+    }
+
+    f.close();
+}
+
