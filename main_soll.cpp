@@ -42,7 +42,7 @@ int main(){
       		        while (std::cin.get() != '\n');
 		            std::cin>>l;
 	         }
-                std::cout<<"\nInserire s\n";
+                std::cout<<"\nInserire s (spessore aste [suggerito 20])\n";
                 std::cin>> s;
                 while(!(std::cin.good())){
 		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
@@ -50,7 +50,7 @@ int main(){
       		        while (std::cin.get() != '\n');
 		            std::cin>>s;
 	            }
-                std::cout<<"\nInserire d\n";
+                std::cout<<"\nInserire d  (diametro perno [suggerito 19])\n";
                 std::cin>> d;
                 while(!(std::cin.good())){
 		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
@@ -58,7 +58,7 @@ int main(){
       		        while (std::cin.get() != '\n');
 		            std::cin>>d;
 	            }
-                std::cout<<"\nInserire n_aste\n";
+                std::cout<<"\nInserire n_aste (numero elementi sollevatore a forbice [suggerito 2])\n";
                 std::cin>> n;
                 while(!(std::cin.good())){
 		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
@@ -66,7 +66,7 @@ int main(){
       		        while (std::cin.get() != '\n');
 		            std::cin>>n;
 	            }
-                std::cout<<"\nInserire dim_blocchi\n";
+                std::cout<<"\nInserire dim_blocchi della guida prismatica [suggerito 34]\n";
                 std::cin>> dim;
                 while(!(std::cin.good())){
 		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
@@ -74,7 +74,7 @@ int main(){
       		        while (std::cin.get() != '\n');
 		            std::cin>>dim;
 	            }
-                std::cout<<"\nInserire x\n";
+                std::cout<<"\nInserire x (posizione x [suggerita 400])\n";
                 std::cin>> x;
                 while(!(std::cin.good())){
 		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
@@ -82,7 +82,7 @@ int main(){
       		        while (std::cin.get() != '\n');
 		            std::cin>>x;
 	            }
-                std::cout<<"\nInserire y\n";
+                std::cout<<"\nInserire y (posizione y [suggerita 550])\n";
                 std::cin>> y;
                 while(!(std::cin.good())){
 		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
@@ -90,7 +90,7 @@ int main(){
       		        while (std::cin.get() != '\n');
 		            std::cin>>y;
 	            }
-                std::cout<<"\nInserire w\n";
+                std::cout<<"\nInserire w (estensione guida prismatica [suggerito 170])\n";
                 std::cin>> w;
                 while(!(std::cin.good())){
 		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
