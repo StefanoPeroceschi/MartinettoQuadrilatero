@@ -337,3 +337,31 @@ void StePer_destroy_macchina(StePer_Sollevatore** macc, unsigned n_istanze){
     f.close();
 }
 
+/**
+ * Funzione check uguaglianza
+ * La funzione ritorna una variabile bool specificando se i due Sollevatore in ingresso sono uguali
+ * @param sol1 primo puntatore a Sollevatore 
+ * @param sol2 secondo puntatore a sollevatore
+ * */
+bool StePer_are_equal(StePer_Sollevatore* sol1, StePer_Sollevatore* sol2){
+    bool out = true;
+    if(sol1->guida->corsa != sol2->guida->corsa){
+        out=false;
+    }
+    else if(sol1->guida->guida->dim_x != sol2->guida->incastri->dim_x){
+        out=false;
+    }
+    else if(sol1->lift->n_quad != sol2->lift->n_quad){
+        out=false;
+    }
+    else if(sol1->lift->quad->l != sol2->lift->quad->l){
+        out=false;
+    }
+    else if(sol1->lift->quad->d != sol2->lift->quad->d){
+        out=false;
+    }
+    else if(sol1->lift->quad->s != sol2->lift->quad->s){
+        out=false;
+    }
+    return out;
+}

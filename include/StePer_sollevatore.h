@@ -186,5 +186,13 @@ void StePer_destroy_macchina(StePer_Sollevatore** macc, unsigned n_istanze);
 */
  StePer_Sollevatore* StePer_load_from_file_sollevatore(std::string	filename);
 
+ /**
+ * Funzione check uguaglianza
+ * La funzione ritorna una variabile bool specificando se i due Sollevatore in ingresso sono uguali
+ * @param sol1 primo puntatore a Sollevatore 
+ * @param sol2 secondo puntatore a sollevatore
+ * */
+bool StePer_are_equal(StePer_Sollevatore* sol1, StePer_Sollevatore* sol2);
+
 
 #endif 
