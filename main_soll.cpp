@@ -144,8 +144,8 @@ int main(){
 
             
             std::cout<<"\nInserire nome del file su cui salvare (senza estensione)\n"; 
-            //std::cin>>filename;
-              filename="e";        
+            std::cin>>filename;
+                
 
             StePer_save_sollevatore(sol, filename);
             
@@ -290,38 +290,7 @@ int main(){
             }            
             break;
         }
-        /*case 'b':{
-            if(quad == NULL){
-                std::cout<<"\nERRORE: necessario inizializzare un quadrilatero per eseguire salvataggio\n";
-                break;
-            } 
-            std::string filename;
-            bool with_measures;
-            int n_segmenti;
-
-            
-            std::cout<<"\nInserire nome del file su cui salvare (senza estensione)\n"; 
-            std::cin>>filename;
-            std::cout<<"\nInserire numero di segmenti\n"; 
-            std::cin>>n_segmenti;
-            while(!(std::cin.good())){
-		        std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
-		        std::cin.clear();
-      		    while (std::cin.get() != '\n');
-		        std::cin>>n_segmenti;
-	        }
-            double w = sqrt( pow(2 * quad->l,2 ) - pow(quad->h,2)  );
-            
-            StePer_ScrissorLift* lift = StePer_init_scrissorlift(n_segmenti, quad->l, quad->s, quad->d, (quad->xa)-w/2,(quad->ya)-(quad->h)/2,w);
-            if (lift==NULL){
-                std::cout <<"\nErrore: il meccanismo esce dal riquadro, scegliere un numero minore di segmenti\n";
-                break;
-            }
-            StePer_save_scrissorlift(lift, filename);
-            StePer_destroy_scrissorlift(lift);
-            
-            break;
-        }*/
+    
         }
         
 
