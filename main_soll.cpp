@@ -15,7 +15,7 @@ int main(){
     do{
         std::cout<<"\nScegli azione premendo il comando corrispondente []:\n\n";
         std::cout<<"[i]\tInizializza sollevatore (ATTENZIONE elimina sollevatore corrente)\n";
-        std::cout<<"[c]\tCarica quadrilatero da file (ATTENZIONE elimina quadrilatero corrente)\n";
+        std::cout<<"[c]\tCarica sollevatore da file (ATTENZIONE elimina quadrilatero corrente)\n";
         std::cout<<"[a]\tSalva sollevatore su file\n";
         std::cout<<"[l]\tImposta nuova lunghezza aste l\n";
         std::cout<<"[s]\tImposta nuovo spesore aste s\n";
