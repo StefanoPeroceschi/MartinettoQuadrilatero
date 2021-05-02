@@ -285,9 +285,12 @@ void StePer_destroy_macchina(StePer_Sollevatore** macc, unsigned n_istanze){
 
 	if( f.is_open() ){
 		while(getline(f, line)){
-            if (line_index == 2){            
+            if (line_index == 2){  
+                double a;
+                line = line.substr( line.find("x") + 5 );
+                a = stod( line);          
                 line = line.substr( line.find("matrix") + 44 );
-                x = stod( line);
+                x = stod( line) +a;
             }
             else if (line_index == 3){            
                 line = line.substr( line.find("width") + 7 );
