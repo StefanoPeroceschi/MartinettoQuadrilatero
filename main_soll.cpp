@@ -25,6 +25,7 @@ int main(){
         std::cout<<"[x]\tImposta nuova posizione x\n";
         std::cout<<"[y]\tImposta nuova posizione y\n";
         std::cout<<"[w]\tImposta nuova apertura alla base w\n";
+        std::cout<<"[k]\tModalità (pseudo)animazione\n";
         std::cout<<"[q]\tTermina programma\n";
 
         std::cin>> choice;
@@ -288,6 +289,34 @@ int main(){
                 std::cin.clear(); 
                 while (std::cin.get() != '\n');
             }            
+            break;
+        }
+        case 'k':{
+            if(sol== NULL){
+                std::cout<<"\nERRORE: necessario prima inizializzare un sollevatore\n";  
+                break;   
+            }
+            char x;
+            std::cout<<"\nPremere [e]/[w] per aumentare/diminuire altezza, [q] per terminare\n(visualizzare file \"(pseudo)animazione.svg\" aggiornato in tempo reale)\n\n"; 
+            std::cin>>x;
+            while(x != 'q'){
+                if(x == 'w'){
+                    if(StePer_set_w_sollevatore(sol, sol->guida->corsa +=5)){
+                        std::cout << "\nERRORE: struttura non più valida\n";
+                        
+                    }
+                    StePer_save_sollevatore(sol, "(pseudo)animazione");
+                }
+                if(x == 'e'){
+                    if(StePer_set_w_sollevatore(sol, sol->guida->corsa -=5)){
+                        std::cout << "\nERRORE: struttura non più valida\n";
+                        
+                    }
+                    StePer_save_sollevatore(sol, "(pseudo)animazione");
+                }
+		        std::cin>>x;
+	        }
+
             break;
         }
     
