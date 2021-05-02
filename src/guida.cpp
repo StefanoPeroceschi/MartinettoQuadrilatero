@@ -403,7 +403,7 @@ string guida_to_SVGstring( GuidaPrismatica * guida ){
     if(guida == NULL) return "";
 
     // Inizializzazione della stringa da resistuire per la conversione in SVG
-    string str = "";
+    string str = "\n";
     string str_trasf = guida_matricetrasformazione( guida );
 
     // Cilindro sul quale scorrerà la guida

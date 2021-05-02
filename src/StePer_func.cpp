@@ -89,7 +89,7 @@ std::string StePer_to_svg_init (){
         out += std::to_string(SVG_X) ;
         out +=  "\" height=\"";
         out += std::to_string(SVG_Y) ;
-        out += "\">\n";
+        out += "\">";
         return out;        
     
   
