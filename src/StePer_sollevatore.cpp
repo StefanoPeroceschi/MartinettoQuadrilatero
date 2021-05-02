@@ -341,26 +341,26 @@ void StePer_destroy_macchina(StePer_Sollevatore** macc, unsigned n_istanze){
  * @param sol2 secondo puntatore a sollevatore
  * */
 bool StePer_are_equal(StePer_Sollevatore* sol1, StePer_Sollevatore* sol2){
-    
+    double epsilon = 0.001;
     if(sol1 == NULL || sol2 == NULL){
         return false;
     }
-    if(sol1->guida->corsa != sol2->guida->corsa){
+    if( fabs(sol1->guida->corsa - sol2->guida->corsa) > epsilon*sol1->guida->corsa ){
         return false;
     }
-    if(sol1->guida->guida->dim_x != sol2->guida->incastri->dim_x){
+    if( fabs(sol1->guida->guida->dim_x - sol2->guida->guida->dim_x) > epsilon*sol1->guida->guida->dim_x ){
         return false;
     }
     if(sol1->lift->n_quad != sol2->lift->n_quad){
         return false;
     }
-    if(sol1->lift->quad->l != sol2->lift->quad->l){
+    if( fabs(sol1->lift->quad->l - sol2->lift->quad->l) > epsilon*sol1->lift->quad->l ){
         return false;
     }
-    if(sol1->lift->quad->d != sol2->lift->quad->d){
+    if( fabs(sol1->lift->quad->d - sol2->lift->quad->d) > epsilon*sol1->lift->quad->d ){
         return false;
     }
-    if(sol1->lift->quad->s != sol2->lift->quad->s){
+    if( fabs(sol1->lift->quad->s - sol2->lift->quad->s) > epsilon*sol1->lift->quad->s ){
         return false;
     }
     return true;
