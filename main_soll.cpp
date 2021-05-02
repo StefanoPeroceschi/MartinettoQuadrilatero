@@ -32,7 +32,8 @@ int main(){
         switch (choice)
         {
         case 'i':{
-            double l, s, d, dim, n, x, y, w;
+            double l, s, d, dim, x, y, w;
+            int n;
             do{
                 std::cout<<"\nInserire l (semilunghezza aste, [suggerito 100])\n";
                 std::cin>> l;

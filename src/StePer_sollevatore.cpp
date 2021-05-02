@@ -20,7 +20,7 @@
 * @param dim_blocchi , parametro relativo alla guida prismatica, in particolare alla dimensione dei blocchi quadrati
 * @param x, @param y, @param w , parametri relativi alla posizione della macchina ed alla estensione della guida prismatica alla base
 */
-StePer_Sollevatore* StePer_init_sollevatore (double l, double s, double d,  double n_aste, double dim_blocchi, double x, double y, double w){
+StePer_Sollevatore* StePer_init_sollevatore (double l, double s, double d,  int n_aste, double dim_blocchi, double x, double y, double w){
     double l_guida; 
     l_guida = 2* l + dim_blocchi ;
   
@@ -56,7 +56,7 @@ void StePer_destroy_sollevatore(StePer_Sollevatore* sol){
  * La funzione verifica che i parametri dei due componenti di sollevatore siano compatibili 
  * ritorna 0 se sono compatibili, 1 altrimenti
  */
-int StePer_check_sollevatore(double l, double s, double d,  double n_aste, double dim_blocchi, double x, double y, double w){
+int StePer_check_sollevatore(double l, double s, double d,  int n_aste, double dim_blocchi, double x, double y, double w){
     if (dim_blocchi > l/2){
         return 1;
     } 
@@ -171,7 +171,7 @@ int StePer_set_d_sollevatore(StePer_Sollevatore* sol,double new_d){
 *   @param sol puntatore a Sollevatore da modificare
 *   @param new_n parametro nuovo
 */
-int StePer_set_n_sollevatore(StePer_Sollevatore* sol,double new_n){
+int StePer_set_n_sollevatore(StePer_Sollevatore* sol,int new_n){
     if ( ! StePer_check_sollevatore(sol->lift->quad->l, sol->lift->quad->s,sol->lift->quad->d, new_n, sol->guida->incastri->dim_x, sol->guida->pos_x, sol->guida->pos_y, sol->guida->corsa )){
         sol->lift->n_quad = new_n;
         return 0;
@@ -266,7 +266,7 @@ void StePer_destroy_macchina(StePer_Sollevatore** macc, unsigned n_istanze){
 
 /**
 *   Carica da file    
-*   la funzione genera un Sollevatore leggendo ottenedo le grandezze da un file svg passato in ingresso
+*   la funzione genera un Sollevatore leggendo le grandezze da un file svg passato in ingresso
 *   @param filename nome del file da caricare
 */
  StePer_Sollevatore* StePer_load_from_file_sollevatore(std::string	filename){
@@ -341,24 +341,27 @@ void StePer_destroy_macchina(StePer_Sollevatore** macc, unsigned n_istanze){
  * @param sol2 secondo puntatore a sollevatore
  * */
 bool StePer_are_equal(StePer_Sollevatore* sol1, StePer_Sollevatore* sol2){
-    bool out = true;
+    
+    if(sol1 == NULL || sol2 == NULL){
+        return false;
+    }
     if(sol1->guida->corsa != sol2->guida->corsa){
-        out=false;
+        return false;
     }
-    else if(sol1->guida->guida->dim_x != sol2->guida->incastri->dim_x){
-        out=false;
+    if(sol1->guida->guida->dim_x != sol2->guida->incastri->dim_x){
+        return false;
     }
-    else if(sol1->lift->n_quad != sol2->lift->n_quad){
-        out=false;
+    if(sol1->lift->n_quad != sol2->lift->n_quad){
+        return false;
     }
-    else if(sol1->lift->quad->l != sol2->lift->quad->l){
-        out=false;
+    if(sol1->lift->quad->l != sol2->lift->quad->l){
+        return false;
     }
-    else if(sol1->lift->quad->d != sol2->lift->quad->d){
-        out=false;
+    if(sol1->lift->quad->d != sol2->lift->quad->d){
+        return false;
     }
-    else if(sol1->lift->quad->s != sol2->lift->quad->s){
-        out=false;
+    if(sol1->lift->quad->s != sol2->lift->quad->s){
+        return false;
     }
-    return out;
+    return true;
 }

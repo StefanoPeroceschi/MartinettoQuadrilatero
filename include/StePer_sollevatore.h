@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <iomanip>
 #include "guida.h"
+#include "StePer_func.h"
 
 
 
@@ -41,7 +42,7 @@ StePer_Sollevatore* StePer_init_sollevatore (
     double l,
     double s,
     double d,
-    double n_aste,
+    int n_aste,
     double dim_blocchi,
     double x,
     double y,
@@ -70,7 +71,7 @@ int StePer_check_sollevatore(
     double l,
     double s,
     double d,
-    double n_aste,
+    int n_aste,
     double dim_blocchi,
     double x,
     double y,
@@ -133,7 +134,7 @@ int StePer_set_d_sollevatore(StePer_Sollevatore* sol,double new_d);
 *   @param sol puntatore a Sollevatore da modificare
 *   @param new_n parametro nuovo
 */
-int StePer_set_n_sollevatore(StePer_Sollevatore* sol,double new_n);
+int StePer_set_n_sollevatore(StePer_Sollevatore* sol,int new_n);
 
 /**
 *   Modifica il valore di x_sollevatore     
@@ -188,10 +189,10 @@ void StePer_destroy_macchina(StePer_Sollevatore** macc, unsigned n_istanze);
 
  /**
  * Funzione check uguaglianza
- * La funzione ritorna una variabile bool specificando se i due Sollevatore in ingresso sono uguali
+ * La funzione ritorna una variabile true se i due Sollevatore in ingresso sono uguali altrimenti false se sono diversi o almeno uno dei due è nullo
  * @param sol1 primo puntatore a Sollevatore 
  * @param sol2 secondo puntatore a sollevatore
- * */
+ **/
 bool StePer_are_equal(StePer_Sollevatore* sol1, StePer_Sollevatore* sol2);
 
 

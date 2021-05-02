@@ -29,7 +29,8 @@ int main(){
         bool error ;
         case 'i':{
             unsigned r;
-            double l, s, d, dim, n, x, y, w;
+            double l, s, d, dim, x, y, w;
+            int n;
             do{
                 error = false;
                 std::cout<<"\nInserire l (semilunghezza aste, [suggerito 100])\n";
