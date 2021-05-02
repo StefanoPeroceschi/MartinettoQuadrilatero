@@ -74,7 +74,7 @@ int main(){
       		        while (std::cin.get() != '\n');
 		            std::cin>>dim;
 	            }
-                std::cout<<"\nInserire x (posizione x [suggerita 400])\n";
+                std::cout<<"\nInserire x (posizione x [suggerita 300])\n";
                 std::cin>> x;
                 while(!(std::cin.good())){
 		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
@@ -106,7 +106,7 @@ int main(){
 
 
                 if(sol == NULL){
-                    std::cout<<"\nErrore: parametri non validi, reinserire i valori\n";
+                    std::cout<<"\nErrore: parametri non validi\n";
                     break;
                 }
             }while(sol==NULL);

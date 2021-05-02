@@ -72,7 +72,7 @@ int main(){
       		        while (std::cin.get() != '\n');
 		            std::cin>>dim;
 	            }
-                std::cout<<"\nInserire x (posizione x [suggerita 400])\n";
+                std::cout<<"\nInserire x (posizione x [suggerita 300])\n";
                 std::cin>> x;
                 while(!(std::cin.good())){
 		            std::cout<<"\nErrore: Parametro non valido, reinserire\n ";
@@ -122,7 +122,6 @@ int main(){
 
                 
                 for(int i = 0; i < n_istanze; i++){
-                    std::cout<<macc[i]<<std::endl;
                    if(macc[i]==NULL){
                        error= true;
                    }
@@ -141,7 +140,6 @@ int main(){
         }
       
         case 'a':{
-            std::cout << "\nn_istanze  : "<<n_istanze<< "\t r  : ";
             if(n_istanze==0){
                 std::cout<<"\nERRORE: necessario inizializzare un sollevatore per eseguire salvataggio\n";
                 break;

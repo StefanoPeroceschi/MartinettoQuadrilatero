@@ -21,18 +21,15 @@
 * @param x, @param y, @param w , parametri relativi alla posizione della macchina ed alla estensione della guida prismatica alla base
 */
 StePer_Sollevatore* StePer_init_sollevatore (double l, double s, double d,  double n_aste, double dim_blocchi, double x, double y, double w){
-    double xa,ya,h, l_guida;
-    h   = 2* sqrt( (l*l) - ( (w/2)* (w/2) ) );
-    xa  = x + w/2;
-    ya  = y + h/2; 
+    double l_guida; 
     l_guida = 2* l + dim_blocchi ;
   
-    GuidaPrismatica* guida = guida_init(x,y,l_guida, w, dim_blocchi, dim_blocchi);
+    GuidaPrismatica* guida = guida_init(x + l_guida/2 ,y,l_guida, w, dim_blocchi, dim_blocchi);
     if (guida == NULL){
         return NULL;
     }
 
-    StePer_ScrissorLift* lift = StePer_init_scrissorlift(n_aste,l,s,d,x- l_guida/2 ,y,w);
+    StePer_ScrissorLift* lift = StePer_init_scrissorlift(n_aste,l,s,d,x,y,w);
     if(lift == NULL){
         return NULL;
     }
@@ -191,8 +188,8 @@ int StePer_set_n_sollevatore(StePer_Sollevatore* sol,double new_n){
 */
 int StePer_set_x_sollevatore(StePer_Sollevatore* sol,double new_x){
     if ( ! StePer_check_sollevatore(sol->lift->quad->l, sol->lift->quad->s,sol->lift->quad->d, sol->lift->n_quad, sol->guida->incastri->dim_x, new_x, sol->guida->pos_y, sol->guida->corsa )){
-        StePer_set_xa(sol->lift->quad, new_x + (sol->guida->corsa)/2 - (sol->guida->corsa)/2  );
-        sol->guida->pos_x = new_x + (sol->guida->lunghezza)/2 - (sol->guida->corsa)/2 ;
+        StePer_set_xa(sol->lift->quad, new_x + (sol->guida->corsa)/2   );
+        sol->guida->pos_x = new_x + (sol->guida->lunghezza)/2 ;
         return 0;
     }
     return 1;
